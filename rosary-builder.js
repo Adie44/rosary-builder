@@ -301,7 +301,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .rb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:start}
 .stage{position:sticky;top:12px;z-index:2;background:radial-gradient(circle at 50% 35%,#fbf8f2,var(--rb-stage) 70%);
  border-radius:18px;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.stage svg{display:block;width:100%;height:auto;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:visible}
+.stage svg{display:block;width:100%;height:auto;max-height:calc(100vh - var(--rb-top,0px) - 40px);max-height:calc(100dvh - var(--rb-top,0px) - 40px);overflow:visible}
 .stage .ring{pointer-events:none}
 .stage{touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .stage.zoomed{cursor:grab}
@@ -350,7 +350,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 @container rb (min-width:701px){
  /* Wide layout: a fixed-height workspace. The rosary fills the left side and never slides under a site header;
     only the swatch grid scrolls, so tabs, summary and the buy button are always in view. */
- .rb{height:clamp(540px,calc(100vh - 160px),760px);height:clamp(540px,calc(100dvh - 160px),760px);align-items:stretch}
+ .rb{height:clamp(480px,calc(100vh - var(--rb-top,0px) - 150px),760px);height:clamp(480px,calc(100dvh - var(--rb-top,0px) - 150px),760px);align-items:stretch}
  .stage{position:relative;top:auto;height:100%;min-height:0}
  .stage svg{height:100%;max-height:none}
  .panel{height:100%;min-height:0;display:flex;flex-direction:column}
@@ -426,7 +426,42 @@ button{font:inherit;color:inherit;cursor:pointer}
       this._built = false;
     }
 
-    connectedCallback() { if (!this._started) { this._started = true; this._load(); } }
+    connectedCallback() {
+      if (!this._started) { this._started = true; this._load(); }
+      this._onResize = this._onResize || (() => this._fit());
+      window.addEventListener('resize', this._onResize);
+    }
+
+    disconnectedCallback() { if (this._onResize) window.removeEventListener('resize', this._onResize); }
+
+    // A site header that stays fixed or sticky at the top covers the builder. Measure how tall it is so the
+    // builder can fit in the space below it (and scroll to sit right under it).
+    _fit() {
+      let top = 0;
+      try {
+        const x = Math.round(window.innerWidth / 2);
+        for (const el of document.elementsFromPoint(x, 4)) {
+          if (el === this || this.contains(el) || el === document.documentElement || el === document.body) continue;
+          const pos = getComputedStyle(el).position;
+          if (pos === 'fixed' || pos === 'sticky') top = Math.max(top, el.getBoundingClientRect().bottom);
+        }
+      } catch (e) { /* cross-origin or unsupported */ }
+      top = Math.max(0, Math.min(Math.round(top), Math.round(window.innerHeight * 0.5)));
+      this.style.setProperty('--rb-top', `${top}px`);
+      this.style.scrollMarginTop = `${top + 8}px`;
+      return top;
+    }
+
+    // First time only: bring the builder fully into view below the header.
+    _revealOnce() {
+      if (this._revealed) return;
+      this._revealed = true;
+      setTimeout(() => {
+        const top = this._fit();
+        const r = this.getBoundingClientRect();
+        if (top > 0 && (r.top < top || r.top > window.innerHeight * 0.4)) this.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }, 400);
+    }
 
     attributeChangedCallback(name) {
       if (!this._built) return;
@@ -492,7 +527,9 @@ button{font:inherit;color:inherit;cursor:pointer}
       this._preload(everything, 20000);
       await this._preload(wanted, 4000);
       this._build();
+      this._fit();
       this._render();
+      this._revealOnce();
     }
 
     _defaults() {
