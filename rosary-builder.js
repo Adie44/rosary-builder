@@ -175,7 +175,7 @@
     }
     // Tail: Our Father, 3 beads, Our Father. Their positions follow the centerpiece's bottom hole (see _computeGeo).
     [['head', 9], ['bead', 6.6], ['bead', 6.6], ['bead', 6.6], ['head', 9]].forEach(([kind, r], n) => {
-      out.push({ id: `Bead-${LOOP_COUNT + n}`, kind, x: CX, y: LOOP_BOTTOM + 60 + n * 18, r, decade: null });
+      out.push({ id: `Bead-${LOOP_COUNT + n}`, kind, x: CX, y: LOOP_BOTTOM + 60 + n * 18, r, decade: kind === 'bead' ? 'tail' : null });
     });
     return { slots: out, pts, cum, total, unit };
   }
@@ -485,7 +485,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       this._state = this._loadDraft() || this._defaults();
       // Wait for the selected photos so the opening animation never shows empty slots.
       const s = this._state;
-      const wanted = [...new Set([s.beads, ...s.decades])].filter(Boolean).map((id) => this._items.beads[id])
+      const wanted = [...new Set([s.beads, s.tail, ...s.decades])].filter(Boolean).map((id) => this._items.beads[id])
         .concat(this._items.heads[s.heads], this._items.center[s.center], this._items.cross[s.cross])
         .map((it) => it && it.image).filter(Boolean);
       const everything = GROUPS.flatMap((g) => Object.values(this._items[g]).map((it) => it.image)).filter(Boolean);
@@ -496,7 +496,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     }
 
     _defaults() {
-      const s = { decades: [null, null, null, null, null] };
+      const s = { decades: [null, null, null, null, null], tail: null };
       GROUPS.forEach((g) => {
         const first = this._catalog.groups[g].items[0];
         s[g] = (this._catalog.defaults && this._catalog.defaults[g]) || (first && first.id);
@@ -512,6 +512,8 @@ button{font:inherit;color:inherit;cursor:pointer}
         for (const g of GROUPS) if (!this._items[g][s[g]]) return null;
         if (!Array.isArray(s.decades) || s.decades.length !== 5) return null;
         if (s.decades.some((d) => d && !this._items.beads[d])) return null;
+        if (s.tail && !this._items.beads[s.tail]) s.tail = null;
+        if (!s.tail) s.tail = null;
         return s;
       } catch (e) { return null; }
     }
@@ -579,7 +581,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       if (hit) {
         if (this._suppressClick) return; // that was the end of a pan, not a tap
         this._tab = hit.dataset.group;
-        const mixed = this._state.decades.some(Boolean);
+        const mixed = this._state.decades.some(Boolean) || !!this._state.tail;
         this._target = this._tab === 'beads' && mixed && hit.dataset.decade !== undefined ? hit.dataset.decade : 'all';
         this._render();
       }
@@ -589,10 +591,11 @@ button{font:inherit;color:inherit;cursor:pointer}
       try { if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate(8); } catch (e) { /* not supported */ }
       const g = this._tab;
       const s = this._state;
-      if (g === 'beads' && this._target !== 'all') s.decades[Number(this._target)] = id;
+      if (g === 'beads' && this._target === 'tail') s.tail = id;
+      else if (g === 'beads' && this._target !== 'all') s.decades[Number(this._target)] = id;
       else {
         s[g] = id;
-        if (g === 'beads') s.decades = [null, null, null, null, null];
+        if (g === 'beads') { s.decades = [null, null, null, null, null]; s.tail = null; }
       }
       this._changed();
     }
@@ -608,7 +611,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 
     _beadItem(decade) {
       const s = this._state;
-      const id = decade != null && s.decades[decade] ? s.decades[decade] : s.beads;
+      const own = decade === 'tail' ? s.tail : decade != null ? s.decades[decade] : null;
+      const id = own || s.beads;
       return this._items.beads[id];
     }
 
@@ -1025,11 +1029,12 @@ button{font:inherit;color:inherit;cursor:pointer}
         const dot = (d) => `<i style="background:${this._beadItem(d).color || '#888'}"></i>`;
         $.targets.innerHTML = '<span>Apply to</span>' +
           `<button class="chip${this._target === 'all' ? ' on' : ''}" data-act="target" data-target="all" type="button">All beads</button>` +
-          [0, 1, 2, 3, 4].map((d) => `<button class="chip${String(d) === this._target ? ' on' : ''}" data-act="target" data-target="${d}" type="button">${dot(d)}Decade ${d + 1}</button>`).join('');
+          [0, 1, 2, 3, 4].map((d) => `<button class="chip${String(d) === this._target ? ' on' : ''}" data-act="target" data-target="${d}" type="button">${dot(d)}Decade ${d + 1}</button>`).join('') +
+          `<button class="chip${this._target === 'tail' ? ' on' : ''}" data-act="target" data-target="tail" type="button">${dot('tail')}Tail</button>`;
       }
 
       const g = this._tab;
-      const selected = g === 'beads' && this._target !== 'all' ? this._beadItem(Number(this._target)).id : s[g];
+      const selected = g === 'beads' && this._target !== 'all' ? this._beadItem(this._target === 'tail' ? 'tail' : Number(this._target)).id : s[g];
       const src = (u) => this._src(u);
       const swatch = (it) => {
         const id = gid(g, it);
@@ -1071,15 +1076,15 @@ button{font:inherit;color:inherit;cursor:pointer}
       const s = this._state;
       const used = (g, ids) => [...new Set(ids.filter(Boolean))].reduce((t, id) => t + (this._items[g][id].extra || 0), 0);
       return Math.round((this._catalog.basePrice +
-        used('beads', [s.beads, ...s.decades]) + used('heads', [s.heads]) + used('center', [s.center]) +
+        used('beads', [s.beads, s.tail, ...s.decades]) + used('heads', [s.heads]) + used('center', [s.center]) +
         used('cross', [s.cross]) + used('cord', [s.cord])) * 100) / 100;
     }
 
     _summaryLines() {
       const s = this._state;
       const name = (g, id) => this._items[g][id].name;
-      const mixed = s.decades.some(Boolean);
-      const beads = mixed ? s.decades.map((d, i) => `D${i + 1} ${name('beads', d || s.beads)}`).join(', ') : name('beads', s.beads);
+      const mixed = s.decades.some(Boolean) || !!s.tail;
+      const beads = mixed ? s.decades.map((d, i) => `D${i + 1} ${name('beads', d || s.beads)}`).concat(`Tail ${name('beads', s.tail || s.beads)}`).join(', ') : name('beads', s.beads);
       return [
         ['Beads', beads],
         ['Our Father beads', name('heads', s.heads)],
@@ -1098,7 +1103,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         v: 1,
         product: this._catalog.product,
         catalogVersion: this._catalog.version,
-        selection: { beads: s.beads, decades: [...s.decades], heads: s.heads, center: s.center, cross: s.cross, cord: s.cord },
+        selection: { beads: s.beads, decades: [...s.decades], tail: s.tail || null, heads: s.heads, center: s.center, cross: s.cross, cord: s.cord },
         slots,
         summary: this._summaryLines().map(([k, v]) => `${k}: ${v}`).join(' | '),
         price: this._price()
@@ -1164,6 +1169,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       const s = this._state;
       GROUPS.forEach((g) => { s[g] = pick(g); });
       s.decades = [0, 1, 2, 3, 4].map(() => (Math.random() < 0.4 ? pick('beads') : null));
+      s.tail = Math.random() < 0.4 ? pick('beads') : null;
       this._changed();
     }
   }
