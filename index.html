@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design Your Own Rosary</title>
+<style>
+  :root{color-scheme:dark}
+  body{margin:0;background:#0e0e0e;color:#f3ece0;font-family:Georgia,'Times New Roman',serif}
+  header{text-align:center;padding:26px 16px 8px}
+  header h1{margin:0;font-size:30px;letter-spacing:.04em}
+  header p{margin:6px 0 0;color:#a99f8e}
+  main{max-width:1100px;margin:0 auto;padding:16px}
+  dialog{background:#181614;color:#f3ece0;border:1px solid #3a342b;border-radius:16px;max-width:460px;width:calc(100% - 32px);padding:22px;text-align:center}
+  dialog::backdrop{background:rgba(0,0,0,.7)}
+  dialog h2{margin:0 0 4px;font-size:22px;color:#c9a24a}
+  dialog .price{font-size:20px;margin:4px 0 12px}
+  dialog img{width:min(240px,70%);border-radius:10px;display:block;margin:0 auto 14px}
+  dialog ul{list-style:none;margin:0 0 16px;padding:0;text-align:left;font-size:14.5px;color:#cfc6b6}
+  dialog li{padding:5px 0;border-top:1px solid #2c2721}
+  dialog small{display:block;color:#a99f8e;margin-top:6px}
+  dialog button{margin-top:6px;padding:11px 22px;border-radius:10px;border:0;background:#c9a24a;font-weight:700;font-size:15px;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <h1>Design Your Own Rosary</h1>
+  <p>Choose every bead, then add it to your cart.</p>
+</header>
+<main>
+  <rosary-builder id="builder" catalog-url="catalog.json"></rosary-builder>
+</main>
+
+<!-- Shown only on this stand-alone demo page. On the shop the customer goes to checkout instead (see wix/page/rosary-page.js). -->
+<dialog id="result">
+  <h2>Your rosary is ready</h2>
+  <div class="price" id="rprice"></div>
+  <img id="rimg" alt="Your rosary design">
+  <ul id="rlist"></ul>
+  <button id="rclose" type="button">Close</button>
+  <small id="rnote"></small>
+</dialog>
+
+<script src="rosary-builder.js"></script>
+<script>
+  document.getElementById('builder').addEventListener('add-to-cart', (e) => {
+    const d = e.detail;
+    document.getElementById('rprice').textContent = d.currency + d.price.toFixed(2);
+    document.getElementById('rimg').src = d.preview || '';
+    document.getElementById('rimg').style.display = d.preview ? '' : 'none';
+    const list = document.getElementById('rlist');
+    list.textContent = '';
+    d.summary.split(' | ').forEach((line) => { const li = document.createElement('li'); li.textContent = line; list.appendChild(li); });
+    document.getElementById('rnote').textContent = 'Design ' + d.designId + ' (demo page: nothing was ordered)';
+    document.getElementById('result').showModal();
+  });
+  document.getElementById('rclose').addEventListener('click', () => document.getElementById('result').close());
+</script>
+</body>
+</html>

@@ -1,0 +1,1125 @@
+{
+ "product": "wired-rosary",
+ "version": 2,
+ "currency": "$",
+ "basePrice": 19.99,
+ "groups": {
+  "beads": {
+   "label": "Beads",
+   "items": [
+    {
+     "id": "black",
+     "name": "Black",
+     "image": "assets/beads/black.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#202021",
+     "extra": 0.0,
+     "gameId": "Black"
+    },
+    {
+     "id": "matte-black",
+     "name": "Matte Black",
+     "image": "assets/beads/matte-black.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#242424",
+     "extra": 0.0,
+     "gameId": "MatBlack"
+    },
+    {
+     "id": "gray",
+     "name": "Gray",
+     "image": "assets/beads/gray.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#7d7c7b",
+     "extra": 0.0,
+     "gameId": "Grey"
+    },
+    {
+     "id": "white",
+     "name": "White",
+     "image": "assets/beads/white.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#cfcbca",
+     "extra": 0.0,
+     "gameId": "White"
+    },
+    {
+     "id": "white-gel",
+     "name": "White Gel",
+     "image": "assets/beads/white-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#d9d8d8",
+     "extra": 0.0,
+     "gameId": "White Jelly Bead"
+    },
+    {
+     "id": "red",
+     "name": "Red",
+     "image": "assets/beads/red.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#ad1211",
+     "extra": 0.0,
+     "gameId": "Red"
+    },
+    {
+     "id": "red-gel",
+     "name": "Red Gel",
+     "image": "assets/beads/red-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#cd1512",
+     "extra": 0.0,
+     "gameId": "Red Jelly Bead"
+    },
+    {
+     "id": "dark-brown",
+     "name": "Dark Brown",
+     "image": "assets/beads/dark-brown.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#62261a",
+     "extra": 0.0,
+     "gameId": "DarkBrown"
+    },
+    {
+     "id": "orange",
+     "name": "Orange",
+     "image": "assets/beads/orange.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#f4600e",
+     "extra": 0.0,
+     "gameId": "Orange"
+    },
+    {
+     "id": "orange-gel",
+     "name": "Orange Gel",
+     "image": "assets/beads/orange-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#fa8b20",
+     "extra": 0.0,
+     "gameId": "Orange Jelly Bead"
+    },
+    {
+     "id": "light-brown",
+     "name": "Light Brown",
+     "image": "assets/beads/light-brown.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#ac8c6c",
+     "extra": 0.0,
+     "gameId": "LightBrown"
+    },
+    {
+     "id": "swirl",
+     "name": "Swirl",
+     "image": "assets/beads/swirl.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#c3a17e",
+     "extra": 0.0,
+     "gameId": "Marble",
+     "gameApprox": true
+    },
+    {
+     "id": "yellow",
+     "name": "Yellow",
+     "image": "assets/beads/yellow.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#dfb109",
+     "extra": 0.0,
+     "gameId": "Yellow"
+    },
+    {
+     "id": "lime-green",
+     "name": "Lime Green",
+     "image": "assets/beads/lime-green.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#adcd60",
+     "extra": 0.0,
+     "gameId": "Green Pony Bead",
+     "gameApprox": true
+    },
+    {
+     "id": "green",
+     "name": "Green",
+     "image": "assets/beads/green.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#19522d",
+     "extra": 0.0,
+     "gameId": "Green"
+    },
+    {
+     "id": "mint-gel",
+     "name": "Mint Gel",
+     "image": "assets/beads/mint-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#7ad5af",
+     "extra": 0.0,
+     "gameId": "Aqua Jelly Bead",
+     "gameApprox": true
+    },
+    {
+     "id": "turquoise",
+     "name": "Turquoise",
+     "image": "assets/beads/turquoise.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#3092a2",
+     "extra": 0.0,
+     "gameId": "Cyan Rubber",
+     "gameApprox": true
+    },
+    {
+     "id": "light-blue-gel",
+     "name": "Light Blue Gel",
+     "image": "assets/beads/light-blue-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#8dc3e0",
+     "extra": 0.0,
+     "gameId": "Blue Jelly Bead",
+     "gameApprox": true
+    },
+    {
+     "id": "medium-blue",
+     "name": "Medium Blue",
+     "image": "assets/beads/medium-blue.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#2088cf",
+     "extra": 0.0,
+     "gameId": "MedBlue"
+    },
+    {
+     "id": "blue-gel",
+     "name": "Blue Gel",
+     "image": "assets/beads/blue-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#239bec",
+     "extra": 0.0,
+     "gameId": "Blue Jelly Bead"
+    },
+    {
+     "id": "light-blue",
+     "name": "Light Blue",
+     "image": "assets/beads/light-blue.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#6d96c5",
+     "extra": 0.0,
+     "gameId": "Baby Blue Pony Bead",
+     "gameApprox": true
+    },
+    {
+     "id": "dark-blue",
+     "name": "Dark Blue",
+     "image": "assets/beads/dark-blue.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#11287c",
+     "extra": 0.0,
+     "gameId": "DarkBlue"
+    },
+    {
+     "id": "incense",
+     "name": "Incense",
+     "image": "assets/beads/incense.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#424656",
+     "extra": 0.0,
+     "gameId": "Chrome",
+     "gameApprox": true
+    },
+    {
+     "id": "dark-purple",
+     "name": "Dark Purple",
+     "image": "assets/beads/dark-purple.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#401d6e",
+     "extra": 0.0,
+     "gameId": "Dark Purple Bead"
+    },
+    {
+     "id": "purple-gel",
+     "name": "Purple Gel",
+     "image": "assets/beads/purple-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#a46ae0",
+     "extra": 0.0,
+     "gameId": "Purple Jelly Bead"
+    },
+    {
+     "id": "light-purple",
+     "name": "Light Purple",
+     "image": "assets/beads/light-purple.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#a377bb",
+     "extra": 0.0,
+     "gameId": "Purple",
+     "gameApprox": true
+    },
+    {
+     "id": "hot-pink-gel",
+     "name": "Hot Pink Gel",
+     "image": "assets/beads/hot-pink-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#f73385",
+     "extra": 0.0,
+     "gameId": "Dark Pink Jelly Bead",
+     "gameApprox": true
+    },
+    {
+     "id": "soft-pink-gel",
+     "name": "Soft Pink Gel",
+     "image": "assets/beads/soft-pink-gel.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#edb3be",
+     "extra": 0.0,
+     "gameId": "Pink Jelly Bead",
+     "gameApprox": true
+    },
+    {
+     "id": "glass-red",
+     "name": "Glass Red",
+     "image": "assets/beads/glass-red.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#751822",
+     "extra": 0.0,
+     "gameId": "Red Gem",
+     "gameApprox": true
+    },
+    {
+     "id": "pink",
+     "name": "Pink",
+     "image": "assets/beads/pink.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#db9596",
+     "extra": 0.0,
+     "gameId": "Pink"
+    }
+   ]
+  },
+  "heads": {
+   "label": "Our Father Beads",
+   "items": [
+    {
+     "id": "gold",
+     "name": "Gold",
+     "image": "assets/our-father-beads/gold.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#8c7f4c",
+     "extra": 0.0,
+     "gameId": "Gold St. Benedict 1"
+    },
+    {
+     "id": "silver",
+     "name": "Silver",
+     "image": "assets/our-father-beads/silver.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#817c73",
+     "extra": 0.0,
+     "gameId": "St. Benedict Silver bead"
+    }
+   ]
+  },
+  "center": {
+   "label": "Centerpiece",
+   "items": [
+    {
+     "id": "christ-risen",
+     "name": "Christ Risen",
+     "image": "assets/centerpieces/christ-risen.webp",
+     "w": 233,
+     "h": 320,
+     "color": "#8c8a86",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.065,
+       0.0619
+      ],
+      "right": [
+       0.8883,
+       0.0619
+      ],
+      "bottom": [
+       0.4524,
+       0.926
+      ]
+     },
+     "gameId": "crucifixion",
+     "gameApprox": true
+    },
+    {
+     "id": "crowned-mary-jesus-gold",
+     "name": "Crowned Mary & Jesus Gold",
+     "image": "assets/centerpieces/crowned-mary-jesus-gold.webp",
+     "w": 195,
+     "h": 320,
+     "color": "#9a8b5f",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.096,
+       0.198
+      ],
+      "right": [
+       0.893,
+       0.198
+      ],
+      "bottom": [
+       0.4702,
+       0.9397
+      ]
+     },
+     "gameId": "mary and jesus gold",
+     "gameApprox": true
+    },
+    {
+     "id": "deluxe-mary",
+     "name": "Deluxe Mary",
+     "image": "assets/centerpieces/deluxe-mary.webp",
+     "w": 223,
+     "h": 320,
+     "color": "#8b8a86",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.094,
+       0.127
+      ],
+      "right": [
+       0.906,
+       0.127
+      ],
+      "bottom": [
+       0.4626,
+       0.9377
+      ]
+     },
+     "gameId": "miraculous mary picture",
+     "gameApprox": true
+    },
+    {
+     "id": "divine-mercy",
+     "name": "Divine Mercy",
+     "image": "assets/centerpieces/divine-mercy.webp",
+     "w": 170,
+     "h": 320,
+     "color": "#807c71",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1117,
+       0.3171
+      ],
+      "right": [
+       0.8883,
+       0.3171
+      ],
+      "bottom": [
+       0.5325,
+       0.9408
+      ]
+     },
+     "gameId": "divine mercy"
+    },
+    {
+     "id": "holy-family",
+     "name": "Holy Family",
+     "image": "assets/centerpieces/holy-family.webp",
+     "w": 231,
+     "h": 320,
+     "color": "#93908b",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.115,
+       0.0589
+      ],
+      "right": [
+       0.9017,
+       0.0925
+      ],
+      "bottom": [
+       0.5184,
+       0.934
+      ]
+     },
+     "gameId": "holy family silver"
+    },
+    {
+     "id": "holy-spirit",
+     "name": "Holy Spirit",
+     "image": "assets/centerpieces/holy-spirit.webp",
+     "w": 222,
+     "h": 320,
+     "color": "#9e9a8f",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.0983,
+       0.1215
+      ],
+      "right": [
+       0.925,
+       0.1169
+      ],
+      "bottom": [
+       0.4274,
+       0.938
+      ]
+     },
+     "gameId": "holy spirit"
+    },
+    {
+     "id": "lady-czestochowa",
+     "name": "Lady Czestochowa",
+     "image": "assets/centerpieces/lady-czestochowa.webp",
+     "w": 200,
+     "h": 320,
+     "color": "#76736e",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1183,
+       0.0804
+      ],
+      "right": [
+       0.8817,
+       0.0887
+      ],
+      "bottom": [
+       0.4827,
+       0.9428
+      ]
+     },
+     "gameId": "Our Lady Czestochowa"
+    },
+    {
+     "id": "lady-guadalupe-gold",
+     "name": "Lady Guadalupe Gold",
+     "image": "assets/centerpieces/lady-guadalupe-gold.webp",
+     "w": 221,
+     "h": 320,
+     "color": "#9f8f61",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.086,
+       0.123
+      ],
+      "right": [
+       0.906,
+       0.123
+      ],
+      "bottom": [
+       0.4969,
+       0.9341
+      ]
+     },
+     "gameId": "Lady of Guadalupe Gold"
+    },
+    {
+     "id": "lady-guadalupe",
+     "name": "Lady Guadalupe",
+     "image": "assets/centerpieces/lady-guadalupe.webp",
+     "w": 232,
+     "h": 320,
+     "color": "#9f9c97",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1217,
+       0.0884
+      ],
+      "right": [
+       0.8783,
+       0.086
+      ],
+      "bottom": [
+       0.4896,
+       0.9265
+      ]
+     },
+     "gameId": "lady guadalupe"
+    },
+    {
+     "id": "lady-of-fatima",
+     "name": "Lady of Fatima",
+     "image": "assets/centerpieces/lady-of-fatima.webp",
+     "w": 233,
+     "h": 320,
+     "color": "#9b9792",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1183,
+       0.091
+      ],
+      "right": [
+       0.8817,
+       0.0959
+      ],
+      "bottom": [
+       0.4752,
+       0.9362
+      ]
+     },
+     "gameId": "Holy Mary",
+     "gameApprox": true
+    },
+    {
+     "id": "lady-of-lourdes",
+     "name": "Lady of Lourdes",
+     "image": "assets/centerpieces/lady-of-lourdes.webp",
+     "w": 234,
+     "h": 320,
+     "color": "#85817b",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1017,
+       0.0841
+      ],
+      "right": [
+       0.885,
+       0.0866
+      ],
+      "bottom": [
+       0.495,
+       0.9289
+      ]
+     },
+     "gameId": "Holy Mary",
+     "gameApprox": true
+    },
+    {
+     "id": "miraculous-mary-gold",
+     "name": "Miraculous Mary Gold",
+     "image": "assets/centerpieces/miraculous-mary-gold.webp",
+     "w": 265,
+     "h": 320,
+     "color": "#9d8f63",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.275,
+       0.0344
+      ],
+      "right": [
+       0.725,
+       0.0344
+      ],
+      "bottom": [
+       0.5077,
+       0.9278
+      ]
+     },
+     "gameId": "miraculous medal gold"
+    },
+    {
+     "id": "miraculous-mary",
+     "name": "Miraculous Mary",
+     "image": "assets/centerpieces/miraculous-mary.webp",
+     "w": 234,
+     "h": 320,
+     "color": "#9b9792",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.095,
+       0.0841
+      ],
+      "right": [
+       0.8917,
+       0.0915
+      ],
+      "bottom": [
+       0.433,
+       0.9311
+      ]
+     },
+     "gameId": "miraculous medal"
+    },
+    {
+     "id": "pope-francis",
+     "name": "Pope Francis",
+     "image": "assets/centerpieces/pope-francis.webp",
+     "w": 216,
+     "h": 320,
+     "color": "#999489",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1083,
+       0.0914
+      ],
+      "right": [
+       0.885,
+       0.1005
+      ],
+      "bottom": [
+       0.4313,
+       0.9377
+      ]
+     },
+     "gameId": "pope francis"
+    },
+    {
+     "id": "st-anthony",
+     "name": "St. Anthony",
+     "image": "assets/centerpieces/st-anthony.webp",
+     "w": 233,
+     "h": 320,
+     "color": "#928f8a",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.0983,
+       0.0787
+      ],
+      "right": [
+       0.9017,
+       0.0787
+      ],
+      "bottom": [
+       0.4816,
+       0.9315
+      ]
+     },
+     "gameId": "st anthony"
+    },
+    {
+     "id": "st-benedict-gold",
+     "name": "St. Benedict Gold",
+     "image": "assets/centerpieces/st-benedict-gold.webp",
+     "w": 286,
+     "h": 320,
+     "color": "#a59063",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.065,
+       0.1443
+      ],
+      "right": [
+       0.915,
+       0.1533
+      ],
+      "bottom": [
+       0.5127,
+       0.9132
+      ]
+     },
+     "gameId": "st benedict gold"
+    },
+    {
+     "id": "st-benedict",
+     "name": "St. Benedict",
+     "image": "assets/centerpieces/st-benedict.webp",
+     "w": 285,
+     "h": 320,
+     "color": "#898784",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.0917,
+       0.1083
+      ],
+      "right": [
+       0.9017,
+       0.1113
+      ],
+      "bottom": [
+       0.4731,
+       0.9254
+      ]
+     },
+     "gameId": "St. Benedict Silver"
+    },
+    {
+     "id": "st-christopher",
+     "name": "St. Christopher",
+     "image": "assets/centerpieces/st-christopher.webp",
+     "w": 230,
+     "h": 320,
+     "color": "#9c968b",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.065,
+       0.0754
+      ],
+      "right": [
+       0.935,
+       0.0754
+      ],
+      "bottom": [
+       0.5361,
+       0.9334
+      ]
+     },
+     "gameId": "St. Christopher"
+    },
+    {
+     "id": "st-faustina",
+     "name": "St. Faustina",
+     "image": "assets/centerpieces/st-faustina.webp",
+     "w": 200,
+     "h": 320,
+     "color": "#a19e96",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.075,
+       0.0866
+      ],
+      "right": [
+       0.925,
+       0.0866
+      ],
+      "bottom": [
+       0.4776,
+       0.9433
+      ]
+     },
+     "gameId": "Divine Mercy Heart",
+     "gameApprox": true
+    },
+    {
+     "id": "st-francis",
+     "name": "St. Francis",
+     "image": "assets/centerpieces/st-francis.webp",
+     "w": 231,
+     "h": 320,
+     "color": "#9b958c",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1083,
+       0.0807
+      ],
+      "right": [
+       0.8917,
+       0.0807
+      ],
+      "bottom": [
+       0.5491,
+       0.9294
+      ]
+     },
+     "gameId": "St. Francis"
+    },
+    {
+     "id": "st-joseph",
+     "name": "St. Joseph",
+     "image": "assets/centerpieces/st-joseph.webp",
+     "w": 213,
+     "h": 320,
+     "color": "#97958e",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.0983,
+       0.0856
+      ],
+      "right": [
+       0.8817,
+       0.0922
+      ],
+      "bottom": [
+       0.439,
+       0.9329
+      ]
+     },
+     "gameId": "st joseph"
+    },
+    {
+     "id": "st-jude",
+     "name": "St. Jude",
+     "image": "assets/centerpieces/st-jude.webp",
+     "w": 234,
+     "h": 320,
+     "color": "#a29e97",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1583,
+       0.0693
+      ],
+      "right": [
+       0.895,
+       0.1083
+      ],
+      "bottom": [
+       0.4621,
+       0.9411
+      ]
+     },
+     "gameId": "st jude silver"
+    },
+    {
+     "id": "st-michael-picture",
+     "name": "St. Michael Picture",
+     "image": "assets/centerpieces/st-michael-picture.webp",
+     "w": 222,
+     "h": 320,
+     "color": "#8c805a",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1583,
+       0.0566
+      ],
+      "right": [
+       0.8283,
+       0.0704
+      ],
+      "bottom": [
+       0.5038,
+       0.9238
+      ]
+     },
+     "gameId": "st michael picture"
+    },
+    {
+     "id": "st-michael-shield",
+     "name": "St. Michael Shield",
+     "image": "assets/centerpieces/st-michael-shield.webp",
+     "w": 238,
+     "h": 320,
+     "color": "#76746e",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.085,
+       0.1203
+      ],
+      "right": [
+       0.9217,
+       0.1104
+      ],
+      "bottom": [
+       0.5023,
+       0.94
+      ]
+     },
+     "gameId": "st. michael silver",
+     "gameApprox": true
+    },
+    {
+     "id": "st-patrick",
+     "name": "St. Patrick",
+     "image": "assets/centerpieces/st-patrick.webp",
+     "w": 194,
+     "h": 320,
+     "color": "#989490",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1217,
+       0.0636
+      ],
+      "right": [
+       0.8817,
+       0.1141
+      ],
+      "bottom": [
+       0.4705,
+       0.9453
+      ]
+     },
+     "gameId": "St. Patrick"
+    },
+    {
+     "id": "sunflower-mary-gold",
+     "name": "Sunflower Mary Gold",
+     "image": "assets/centerpieces/sunflower-mary-gold.webp",
+     "w": 271,
+     "h": 320,
+     "color": "#8c815b",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.107,
+       0.086
+      ],
+      "right": [
+       0.906,
+       0.086
+      ],
+      "bottom": [
+       0.4965,
+       0.9327
+      ]
+     },
+     "gameId": "mary and jesus gold",
+     "gameApprox": true
+    },
+    {
+     "id": "twin-hearts",
+     "name": "Twin Hearts",
+     "image": "assets/centerpieces/twin-hearts.webp",
+     "w": 197,
+     "h": 320,
+     "color": "#9f9b94",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.104,
+       0.086
+      ],
+      "right": [
+       0.904,
+       0.08
+      ],
+      "bottom": [
+       0.5381,
+       0.9422
+      ]
+     },
+     "gameId": "sacred heart",
+     "gameApprox": true
+    }
+   ]
+  },
+  "cross": {
+   "label": "Crucifix",
+   "items": [
+    {
+     "id": "celtic-cross",
+     "name": "Celtic Cross",
+     "image": "assets/crucifixes/celtic-cross.webp",
+     "w": 234,
+     "h": 400,
+     "color": "#95908a",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5025,
+       0.0599
+      ]
+     },
+     "gameId": "celtic"
+    },
+    {
+     "id": "gold-crucifix",
+     "name": "Gold Crucifix",
+     "image": "assets/crucifixes/gold-crucifix.webp",
+     "w": 236,
+     "h": 400,
+     "color": "#a4965b",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5175,
+       0.0516
+      ]
+     },
+     "gameId": "Old Gold Crucifix",
+     "gameApprox": true
+    },
+    {
+     "id": "nail-cross",
+     "name": "Nail Cross",
+     "image": "assets/crucifixes/nail-cross.webp",
+     "w": 211,
+     "h": 400,
+     "color": "#8a8881",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5025,
+       0.0569
+      ]
+     },
+     "gameId": "Classic Crucifix",
+     "gameApprox": true
+    },
+    {
+     "id": "square-crucifix",
+     "name": "Square Crucifix",
+     "image": "assets/crucifixes/square-crucifix.webp",
+     "w": 222,
+     "h": 400,
+     "color": "#88857f",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5109,
+       0.0507
+      ]
+     },
+     "gameId": "Decorative Crucifix",
+     "gameApprox": true
+    },
+    {
+     "id": "st-benedict-crucifix",
+     "name": "St. Benedict Crucifix",
+     "image": "assets/crucifixes/st-benedict-crucifix.webp",
+     "w": 225,
+     "h": 400,
+     "color": "#787574",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5025,
+       0.0577
+      ]
+     },
+     "gameId": "st benedict"
+    }
+   ]
+  },
+  "cord": {
+   "label": "Cord",
+   "items": [
+    {
+     "id": "white",
+     "name": "White Cord",
+     "color": "#f4f1ea",
+     "extra": 0,
+     "gameId": "White string"
+    },
+    {
+     "id": "black",
+     "name": "Black Cord",
+     "color": "#1f1f23",
+     "extra": 0,
+     "gameId": "Black string"
+    }
+   ]
+  }
+ },
+ "defaults": {
+  "beads": "black",
+  "heads": "silver",
+  "center": "st-benedict",
+  "cross": "st-benedict-crucifix",
+  "cord": "black"
+ }
+}
