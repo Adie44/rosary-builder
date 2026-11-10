@@ -294,7 +294,7 @@
 
   /* ------------------------------------------------------------------- styles */
   const CSS = `
-:host{display:block;color:var(--rb-text,#f3ece0);font-family:var(--rb-font,Georgia,'Times New Roman',serif);
+:host{display:block;container-type:inline-size;container-name:rb;color:var(--rb-text,#f3ece0);font-family:var(--rb-font,Georgia,'Times New Roman',serif);
  --rb-accent:#c9a24a;--rb-card:#181614;--rb-border:#3a342b;--rb-muted:#a99f8e;--rb-stage:${STAGE}}
 *{box-sizing:border-box}
 button{font:inherit;color:inherit;cursor:pointer}
@@ -347,8 +347,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .msg:empty{display:none}
 .ghost{border:1px solid var(--rb-border);background:transparent;border-radius:12px;padding:13px 14px;font-size:14px}
 :host([hide-cta]) .cta{display:none}
-@media(max-width:700px) and (orientation:portrait),(max-width:520px){
- /* Phone layout: rosary pinned on top, swipeable option rows below, sticky buy bar. */
+@container rb (max-width:700px){
+ /* Narrow layout (decided by the builder's own width, not the window): rosary pinned on top, swipeable option rows below, sticky buy bar. */
  .rb{grid-template-columns:minmax(0,1fr);gap:10px}
  .stage{top:0;padding:4px;border-radius:0 0 18px 18px;height:min(44vh,400px);height:min(44dvh,400px)}
  .stage svg{height:100%;max-height:none}
@@ -373,14 +373,14 @@ button{font:inherit;color:inherit;cursor:pointer}
  .ghost .lbl{display:none}
  .cta{white-space:nowrap;font-size:15.5px;padding:14px 10px}
 }
-@media(max-width:700px) and (orientation:portrait) and (max-height:700px),(max-width:520px) and (max-height:700px){
- /* Short portrait phones: shorter rosary, one row of swatches, so the options show on the first screen. */
+@media(max-height:700px){@container rb (max-width:700px){
+ /* Short narrow screens: shorter rosary, one row of swatches, so the options show on the first screen. */
  .stage{height:min(36vh,300px);height:min(36dvh,300px)}
  .opts{grid-template-rows:min-content}
  .sum{display:none}
-}
-@media(orientation:landscape) and (max-height:560px) and (min-width:521px){
- /* Landscape phones: rosary on the left (full height), options on the right, sticky buy bar. */
+}}
+@media(orientation:landscape) and (max-height:560px) and (pointer:coarse){@container rb (min-width:521px){
+ /* Landscape phones (touch only): rosary on the left (full height), options on the right, sticky buy bar. */
  .rb{gap:12px;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
  .stage{top:6px;padding:4px}
  .stage svg{max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}
@@ -392,7 +392,7 @@ button{font:inherit;color:inherit;cursor:pointer}
  .sum{display:none}
  .cta{white-space:nowrap;font-size:15px;padding:13px 10px}
  .row{position:sticky;bottom:0;z-index:3;margin:8px -10px 0;padding:8px 10px;background:linear-gradient(to bottom,rgba(24,22,20,0),var(--rb-card) 28%)}
-}
+}}
 @media(hover:hover) and (pointer:fine){
  .tabs,.opts,.targets{scrollbar-width:thin;scrollbar-color:#6a5d43 transparent}
  .tabs::-webkit-scrollbar,.opts::-webkit-scrollbar,.targets::-webkit-scrollbar{display:block;height:8px}
