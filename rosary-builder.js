@@ -347,6 +347,16 @@ button{font:inherit;color:inherit;cursor:pointer}
 .msg:empty{display:none}
 .ghost{border:1px solid var(--rb-border);background:transparent;border-radius:12px;padding:13px 14px;font-size:14px}
 :host([hide-cta]) .cta{display:none}
+@container rb (min-width:701px){
+ /* Wide layout: a fixed-height workspace. The rosary fills the left side and never slides under a site header;
+    only the swatch grid scrolls, so tabs, summary and the buy button are always in view. */
+ .rb{height:clamp(540px,calc(100vh - 160px),760px);height:clamp(540px,calc(100dvh - 160px),760px);align-items:stretch}
+ .stage{position:relative;top:auto;height:100%;min-height:0}
+ .stage svg{height:100%;max-height:none}
+ .panel{height:100%;min-height:0;display:flex;flex-direction:column}
+ .tabs,.targets,.sum,.row,.msg{flex:none}
+ .opts{flex:1 1 auto;min-height:0;overflow-y:auto;align-content:start;padding-right:4px;overscroll-behavior:contain}
+}
 @container rb (max-width:700px){
  /* Narrow layout (decided by the builder's own width, not the window): rosary pinned on top, swipeable option rows below, sticky buy bar. */
  .rb{grid-template-columns:minmax(0,1fr);gap:10px}
@@ -381,7 +391,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 }}
 @media(orientation:landscape) and (max-height:560px) and (pointer:coarse){@container rb (min-width:521px){
  /* Landscape phones (touch only): rosary on the left (full height), options on the right, sticky buy bar. */
- .rb{gap:12px;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+ .rb{gap:12px;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);height:calc(100vh - 12px);height:calc(100dvh - 12px)}
  .stage{top:6px;padding:4px}
  .stage svg{max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px)}
  .panel{padding:10px}
