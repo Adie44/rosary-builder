@@ -294,7 +294,7 @@
 
   /* ------------------------------------------------------------------- styles */
   const CSS = `
-:host{display:block;container-type:inline-size;container-name:rb;color:var(--rb-text,#f3ece0);font-family:var(--rb-font,Georgia,'Times New Roman',serif);
+:host{display:block;container-type:inline-size;container-name:rb;max-width:1200px;margin-inline:auto;color:var(--rb-text,#f3ece0);font-family:var(--rb-font,Georgia,'Times New Roman',serif);
  --rb-accent:#c9a24a;--rb-card:#181614;--rb-border:#3a342b;--rb-muted:#a99f8e;--rb-stage:${STAGE}}
 *{box-sizing:border-box}
 button{font:inherit;color:inherit;cursor:pointer}
