@@ -541,7 +541,8 @@
        0.9341
       ]
      },
-     "gameId": "Lady of Guadalupe Gold"
+     "gameId": "Lady of Guadalupe Gold",
+     "soldOut": true
     },
     {
      "id": "lady-guadalupe",

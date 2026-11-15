@@ -328,7 +328,11 @@ button{font:inherit;color:inherit;cursor:pointer}
 .chip.on{border-color:var(--rb-accent);color:var(--rb-accent)}
 .chip i{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid rgba(255,255,255,.25)}
 .opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:14px}
-.opt{border:1px solid var(--rb-border);background:#211e1a;border-radius:14px;padding:8px 6px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;transition:transform .15s,border-color .15s}
+.opt{position:relative;border:1px solid var(--rb-border);background:#211e1a;border-radius:14px;padding:8px 6px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;transition:transform .15s,border-color .15s}
+.opt.sold,.opt.sold:hover{opacity:.55;cursor:not-allowed;transform:none;border-color:var(--rb-border)}
+.opt.sold .sw{filter:grayscale(.75)}
+.opt.sold .nm{text-decoration:line-through;text-decoration-color:#8a8070}
+.tag-sold{position:absolute;top:5px;left:5px;z-index:1;background:#8c2f2f;color:#fff;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:999px;line-height:1.1;pointer-events:none}
 .opt:hover{transform:translateY(-2px);border-color:#6a5d43}
 .opt.on{border-color:var(--rb-accent);box-shadow:0 0 0 1px var(--rb-accent) inset}
 .opt:active{transform:scale(.95)}
@@ -535,21 +539,27 @@ button{font:inherit;color:inherit;cursor:pointer}
     _defaults() {
       const s = { decades: [null, null, null, null, null], tail: null };
       GROUPS.forEach((g) => {
-        const first = this._catalog.groups[g].items[0];
-        s[g] = (this._catalog.defaults && this._catalog.defaults[g]) || (first && first.id);
+        const items = this._catalog.groups[g].items;
+        const wanted = this._catalog.defaults && this._catalog.defaults[g];
+        const ok = (it) => it && !it.soldOut;
+        const first = items.find(ok);
+        s[g] = (wanted && ok(this._items[g][wanted]) ? wanted : null) || (first && first.id) || (items[0] && items[0].id);
       });
       return s;
     }
+
+    // Items marked soldOut in catalog.json are shown with a tag and cannot be chosen
+    _soldOut(g, id) { const it = id && this._items[g] && this._items[g][id]; return !!(it && it.soldOut); }
 
     _loadDraft() {
       try {
         const raw = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
         if (!raw || raw.product !== this._catalog.product) return null;
         const s = raw.state;
-        for (const g of GROUPS) if (!this._items[g][s[g]]) return null;
+        for (const g of GROUPS) if (!this._items[g][s[g]] || this._soldOut(g, s[g])) return null;   // a saved design with a now sold-out part starts fresh
         if (!Array.isArray(s.decades) || s.decades.length !== 5) return null;
-        if (s.decades.some((d) => d && !this._items.beads[d])) return null;
-        if (s.tail && !this._items.beads[s.tail]) s.tail = null;
+        if (s.decades.some((d) => d && (!this._items.beads[d] || this._soldOut('beads', d)))) return null;
+        if (s.tail && (!this._items.beads[s.tail] || this._soldOut('beads', s.tail))) s.tail = null;
         if (!s.tail) s.tail = null;
         return s;
       } catch (e) { return null; }
@@ -625,6 +635,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     }
 
     _pick(id) {
+      if (this._soldOut(this._tab, id)) return;
       try { if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate(8); } catch (e) { /* not supported */ }
       const g = this._tab;
       const s = this._state;
@@ -1083,8 +1094,8 @@ button{font:inherit;color:inherit;cursor:pointer}
       $.opts.classList.toggle('enter', !!this._enter);
       this._enter = false;
       $.opts.innerHTML = cat.groups[g].items.map((it, i) =>
-        `<button class="opt${it.id === selected ? ' on' : ''}" style="--i:${i}" data-act="pick" data-id="${esc(it.id)}" aria-pressed="${it.id === selected}" type="button">` +
-        `<span class="sw">${swatch(it)}</span><span class="nm">${esc(it.name)}</span>` +
+        `<button class="opt${it.id === selected ? ' on' : ''}${it.soldOut ? ' sold' : ''}" style="--i:${i}" data-act="pick" data-id="${esc(it.id)}" aria-pressed="${it.id === selected}"${it.soldOut ? ' disabled aria-disabled="true"' : ''} type="button">` +
+        `${it.soldOut ? '<span class="tag-sold">Sold out</span>' : ''}<span class="sw">${swatch(it)}</span><span class="nm">${esc(it.name)}</span>` +
         `${it.extra ? `<span class="ex">+${this._fmt(it.extra)}</span>` : ''}</button>`).join('');
 
       const lines = this._summaryLines();
@@ -1202,7 +1213,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     }
 
     randomize() {
-      const pick = (g) => { const l = this._catalog.groups[g].items; return l[Math.floor(Math.random() * l.length)].id; };
+      const pick = (g) => { const all = this._catalog.groups[g].items; const l = all.filter((it) => !it.soldOut); const src = l.length ? l : all; return src[Math.floor(Math.random() * src.length)].id; };
       const s = this._state;
       GROUPS.forEach((g) => { s[g] = pick(g); });
       s.decades = [0, 1, 2, 3, 4].map(() => (Math.random() < 0.4 ? pick('beads') : null));
