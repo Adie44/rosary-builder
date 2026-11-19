@@ -420,6 +420,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .opt.sold .sw{filter:grayscale(.75)}
 .opt.sold .nm{text-decoration:line-through;text-decoration-color:#8a8070}
 .tag-sold{position:absolute;top:5px;left:5px;z-index:1;background:#8c2f2f;color:#fff;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:999px;line-height:1.1;pointer-events:none}
+.tag-new{position:absolute;top:5px;left:5px;z-index:1;background:var(--rb-accent);color:#1a1408;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 6px;border-radius:999px;line-height:1.1;pointer-events:none}
 .opt:hover{transform:translateY(-2px);border-color:#6a5d43}
 .opt.on{border-color:var(--rb-accent);box-shadow:0 0 0 1px var(--rb-accent) inset}
 .opt:active{transform:scale(.95)}
@@ -1291,7 +1292,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       this._enter = false;
       $.opts.innerHTML = cat.groups[T.group[g]].items.map((it, i) =>
         `<button class="opt${it.id === selected ? ' on' : ''}${it.soldOut ? ' sold' : ''}" style="--i:${i}" data-act="pick" data-id="${esc(it.id)}" aria-pressed="${it.id === selected}"${it.soldOut ? ' disabled aria-disabled="true"' : ''} type="button">` +
-        `${it.soldOut ? '<span class="tag-sold">Sold out</span>' : ''}<span class="sw">${swatch(it)}</span><span class="nm">${esc(it.name)}</span>` +
+        `${it.soldOut ? '<span class="tag-sold">Sold out</span>' : ''}${it.new && !it.soldOut ? '<span class="tag-new">New</span>' : ''}<span class="sw">${swatch(it)}</span><span class="nm">${esc(it.name)}</span>` +
         `${it.extra ? `<span class="ex">+${this._fmt(it.extra)}</span>` : ''}</button>`).join('');
 
       const lines = this._summaryLines();
