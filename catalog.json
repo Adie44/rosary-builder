@@ -1,6 +1,6 @@
 {
  "product": "wired-rosary",
- "version": 2,
+ "version": 3,
  "currency": "$",
  "basePrice": 19.99,
  "groups": {
@@ -28,6 +28,15 @@
      "gameId": "MatBlack"
     },
     {
+     "id": "black-skull",
+     "name": "Black Skull",
+     "image": "assets/beads/black-skull.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#2a292a",
+     "extra": 0.0
+    },
+    {
      "id": "gray",
      "name": "Gray",
      "image": "assets/beads/gray.webp",
@@ -38,6 +47,15 @@
      "gameId": "Grey"
     },
     {
+     "id": "silver",
+     "name": "Silver",
+     "image": "assets/beads/silver.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#b5b4b4",
+     "extra": 0.0
+    },
+    {
      "id": "white",
      "name": "White",
      "image": "assets/beads/white.webp",
@@ -46,6 +64,15 @@
      "color": "#cfcbca",
      "extra": 0.0,
      "gameId": "White"
+    },
+    {
+     "id": "pearl",
+     "name": "Pearl",
+     "image": "assets/beads/pearl.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#d4c7b5",
+     "extra": 0.0
     },
     {
      "id": "white-gel",
@@ -108,6 +135,15 @@
      "gameId": "Orange Jelly Bead"
     },
     {
+     "id": "white-skull",
+     "name": "White Skull",
+     "image": "assets/beads/white-skull.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#c09e7c",
+     "extra": 0.0
+    },
+    {
      "id": "light-brown",
      "name": "Light Brown",
      "image": "assets/beads/light-brown.webp",
@@ -127,6 +163,15 @@
      "extra": 0.0,
      "gameId": "Marble",
      "gameApprox": true
+    },
+    {
+     "id": "gold",
+     "name": "Gold",
+     "image": "assets/beads/gold.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#dbb351",
+     "extra": 0.0
     },
     {
      "id": "yellow",
@@ -276,6 +321,15 @@
      "gameApprox": true
     },
     {
+     "id": "pink-pearl",
+     "name": "Pink Pearl",
+     "image": "assets/beads/pink-pearl.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#f094c4",
+     "extra": 0.0
+    },
+    {
      "id": "hot-pink-gel",
      "name": "Hot Pink Gel",
      "image": "assets/beads/hot-pink-gel.webp",
@@ -342,6 +396,105 @@
      "color": "#817c73",
      "extra": 0.0,
      "gameId": "St. Benedict Silver bead"
+    },
+    {
+     "id": "child-prague",
+     "name": "Child Prague",
+     "image": "assets/our-father-beads/child-prague.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#988682",
+     "extra": 0.0
+    },
+    {
+     "id": "crucifixion",
+     "name": "Crucifixion",
+     "image": "assets/our-father-beads/crucifixion.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#506163",
+     "extra": 0.0
+    },
+    {
+     "id": "holy-family",
+     "name": "Holy Family",
+     "image": "assets/our-father-beads/holy-family.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#897a66",
+     "extra": 0.0
+    },
+    {
+     "id": "immaculate-heart",
+     "name": "Immaculate Heart",
+     "image": "assets/our-father-beads/immaculate-heart.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#896a64",
+     "extra": 0.0
+    },
+    {
+     "id": "lady-guadalupe",
+     "name": "Lady Guadalupe",
+     "image": "assets/our-father-beads/lady-guadalupe.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#96713e",
+     "extra": 0.0
+    },
+    {
+     "id": "lady-medjugorje",
+     "name": "Lady Medjugorje",
+     "image": "assets/our-father-beads/lady-medjugorje.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#8b7a77",
+     "extra": 0.0
+    },
+    {
+     "id": "mary",
+     "name": "Mary",
+     "image": "assets/our-father-beads/mary.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#9e9c97",
+     "extra": 0.0
+    },
+    {
+     "id": "sacred-heart",
+     "name": "Sacred Heart",
+     "image": "assets/our-father-beads/sacred-heart.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#88684d",
+     "extra": 0.0
+    },
+    {
+     "id": "st-jude",
+     "name": "St. Jude",
+     "image": "assets/our-father-beads/st-jude.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#7c8759",
+     "extra": 0.0
+    },
+    {
+     "id": "st-michael",
+     "name": "St. Michael",
+     "image": "assets/our-father-beads/st-michael.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#74706d",
+     "extra": 0.0
+    },
+    {
+     "id": "st-therese",
+     "name": "St. Therese",
+     "image": "assets/our-father-beads/st-therese.webp",
+     "w": 192,
+     "h": 192,
+     "color": "#8a7f70",
+     "extra": 0.0
     }
    ]
   },
@@ -1005,6 +1158,167 @@
      },
      "gameId": "sacred heart",
      "gameApprox": true
+    },
+    {
+     "id": "lady-guadalupe-dazzling",
+     "name": "Lady Guadalupe Dazzling",
+     "image": "assets/centerpieces/lady-guadalupe-dazzling.webp",
+     "w": 218,
+     "h": 320,
+     "color": "#977e66",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.365,
+       0.0986
+      ],
+      "right": [
+       0.8883,
+       0.0873
+      ],
+      "bottom": [
+       0.4926,
+       0.9271
+      ]
+     }
+    },
+    {
+     "id": "pope-leo",
+     "name": "Pope Leo",
+     "image": "assets/centerpieces/pope-leo.webp",
+     "w": 290,
+     "h": 320,
+     "color": "#777575",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.075,
+       0.0408
+      ],
+      "right": [
+       0.925,
+       0.0408
+      ],
+      "bottom": [
+       0.5024,
+       0.9294
+      ]
+     }
+    },
+    {
+     "id": "red-sacred-heart",
+     "name": "Red Sacred Heart",
+     "image": "assets/centerpieces/red-sacred-heart.webp",
+     "w": 233,
+     "h": 320,
+     "color": "#a19591",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.0583,
+       0.1102
+      ],
+      "right": [
+       0.8983,
+       0.0593
+      ],
+      "bottom": [
+       0.5002,
+       0.9223
+      ]
+     }
+    },
+    {
+     "id": "sacred-heart",
+     "name": "Sacred Heart",
+     "image": "assets/centerpieces/sacred-heart.webp",
+     "w": 249,
+     "h": 320,
+     "color": "#a5a39d",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.1783,
+       0.0948
+      ],
+      "right": [
+       0.8417,
+       0.1286
+      ],
+      "bottom": [
+       0.4638,
+       0.9251
+      ]
+     }
+    },
+    {
+     "id": "st-michael-silver",
+     "name": "St. Michael Silver",
+     "image": "assets/centerpieces/st-michael-silver.webp",
+     "w": 226,
+     "h": 320,
+     "color": "#adaaa6",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.0883,
+       0.1188
+      ],
+      "right": [
+       0.8883,
+       0.0835
+      ],
+      "bottom": [
+       0.4407,
+       0.9208
+      ]
+     }
+    },
+    {
+     "id": "st-peregrine-blue",
+     "name": "St. Peregrine Blue",
+     "image": "assets/centerpieces/st-peregrine-blue.webp",
+     "w": 234,
+     "h": 320,
+     "color": "#8b908e",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.0583,
+       0.1061
+      ],
+      "right": [
+       0.9417,
+       0.1061
+      ],
+      "bottom": [
+       0.5034,
+       0.9278
+      ]
+     }
+    },
+    {
+     "id": "st-therese-purple",
+     "name": "St. Therese Purple",
+     "image": "assets/centerpieces/st-therese-purple.webp",
+     "w": 232,
+     "h": 320,
+     "color": "#8f8080",
+     "extra": 0.0,
+     "anchors": {
+      "left": [
+       0.0917,
+       0.0471
+      ],
+      "right": [
+       0.915,
+       0.0664
+      ],
+      "bottom": [
+       0.4587,
+       0.9245
+      ]
+     }
     }
    ]
   },
@@ -1093,6 +1407,1184 @@
       ]
      },
      "gameId": "st benedict"
+    },
+    {
+     "id": "divine-mercy-cross",
+     "name": "Divine Mercy Cross",
+     "image": "assets/crucifixes/divine-mercy-cross.webp",
+     "w": 185,
+     "h": 400,
+     "color": "#9c8f8b",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5411,
+       0.0554
+      ]
+     }
+    },
+    {
+     "id": "lady-guadalupe-cross",
+     "name": "Lady Guadalupe Cross",
+     "image": "assets/crucifixes/lady-guadalupe-cross.webp",
+     "w": 153,
+     "h": 400,
+     "color": "#7a6757",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4494,
+       0.0458
+      ]
+     }
+    },
+    {
+     "id": "san-judas-cross",
+     "name": "San Judas Cross",
+     "image": "assets/crucifixes/san-judas-cross.webp",
+     "w": 142,
+     "h": 400,
+     "color": "#8c9171",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4138,
+       0.0425
+      ]
+     }
+    }
+   ]
+  },
+  "rope-beads": {
+   "label": "Jesus Beads",
+   "items": [
+    {
+     "id": "black-wood",
+     "name": "Black Wood",
+     "image": "assets/rope-beads/black-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#29292b",
+     "extra": 0.0
+    },
+    {
+     "id": "blue-wood",
+     "name": "Blue Wood",
+     "image": "assets/rope-beads/blue-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#0d448b",
+     "extra": 0.0
+    },
+    {
+     "id": "brown-wood",
+     "name": "Brown Wood",
+     "image": "assets/rope-beads/brown-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#39261b",
+     "extra": 0.0
+    },
+    {
+     "id": "cherry-wood",
+     "name": "Cherry Wood",
+     "image": "assets/rope-beads/cherry-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#6d1321",
+     "extra": 0.0
+    },
+    {
+     "id": "green-wood",
+     "name": "Green Wood",
+     "image": "assets/rope-beads/green-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#164621",
+     "extra": 0.0
+    },
+    {
+     "id": "purple-wood",
+     "name": "Purple Wood",
+     "image": "assets/rope-beads/purple-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#6f154e",
+     "extra": 0.0
+    },
+    {
+     "id": "red-wood",
+     "name": "Red Wood",
+     "image": "assets/rope-beads/red-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#991116",
+     "extra": 0.0
+    },
+    {
+     "id": "white-wood",
+     "name": "White Wood",
+     "image": "assets/rope-beads/white-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#cecdce",
+     "extra": 0.0
+    },
+    {
+     "id": "yellow-wood",
+     "name": "Yellow Wood",
+     "image": "assets/rope-beads/yellow-wood.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#c69806",
+     "extra": 0.0
+    }
+   ]
+  },
+  "rope-spacers": {
+   "label": "Spacers",
+   "items": [
+    {
+     "id": "black",
+     "name": "Black",
+     "image": "assets/rope-spacers/black.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#2e3036",
+     "extra": 0.0
+    },
+    {
+     "id": "blue",
+     "name": "Blue",
+     "image": "assets/rope-spacers/blue.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#253059",
+     "extra": 0.0
+    },
+    {
+     "id": "brown",
+     "name": "Brown",
+     "image": "assets/rope-spacers/brown.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#5b4c45",
+     "extra": 0.0
+    },
+    {
+     "id": "green",
+     "name": "Green",
+     "image": "assets/rope-spacers/green.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#525a4c",
+     "extra": 0.0
+    },
+    {
+     "id": "pink",
+     "name": "Pink",
+     "image": "assets/rope-spacers/pink.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#cf9096",
+     "extra": 0.0
+    },
+    {
+     "id": "red",
+     "name": "Red",
+     "image": "assets/rope-spacers/red.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#943f3b",
+     "extra": 0.0
+    },
+    {
+     "id": "white",
+     "name": "White",
+     "image": "assets/rope-spacers/white.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#d7d8d3",
+     "extra": 0.0
+    },
+    {
+     "id": "yellow",
+     "name": "Yellow",
+     "image": "assets/rope-spacers/yellow.webp",
+     "w": 160,
+     "h": 160,
+     "color": "#d2a845",
+     "extra": 0.0
+    }
+   ]
+  },
+  "rope-cross": {
+   "label": "Cross",
+   "items": [
+    {
+     "id": "black-3-bar",
+     "name": "Black 3 Bar",
+     "image": "assets/rope-crosses/black-3-bar.webp",
+     "w": 267,
+     "h": 360,
+     "color": "#282b31",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.492,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "blue-3-bar",
+     "name": "Blue 3 Bar",
+     "image": "assets/rope-crosses/blue-3-bar.webp",
+     "w": 268,
+     "h": 360,
+     "color": "#162760",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4772,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "brown-3-bar",
+     "name": "Brown 3 Bar",
+     "image": "assets/rope-crosses/brown-3-bar.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#604a43",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4849,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "green-3-bar",
+     "name": "Green 3 Bar",
+     "image": "assets/rope-crosses/green-3-bar.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#4e5a47",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4866,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "pink-3-bar",
+     "name": "Pink 3 Bar",
+     "image": "assets/rope-crosses/pink-3-bar.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#e88294",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4921,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "red-3-bar",
+     "name": "Red 3 Bar",
+     "image": "assets/rope-crosses/red-3-bar.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#aa302f",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4927,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "white-3-bar",
+     "name": "White 3 Bar",
+     "image": "assets/rope-crosses/white-3-bar.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#d8d8d4",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4875,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "yellow-3-bar",
+     "name": "Yellow 3 Bar",
+     "image": "assets/rope-crosses/yellow-3-bar.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#f3b70d",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4857,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "black-byzantine",
+     "name": "Black Byzantine",
+     "image": "assets/rope-crosses/black-byzantine.webp",
+     "w": 273,
+     "h": 360,
+     "color": "#26292e",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5005,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "blue-byzantine",
+     "name": "Blue Byzantine",
+     "image": "assets/rope-crosses/blue-byzantine.webp",
+     "w": 272,
+     "h": 360,
+     "color": "#1a2f77",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.495,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "brown-byzantine",
+     "name": "Brown Byzantine",
+     "image": "assets/rope-crosses/brown-byzantine.webp",
+     "w": 273,
+     "h": 360,
+     "color": "#60473e",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4986,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "green-byzantine",
+     "name": "Green Byzantine",
+     "image": "assets/rope-crosses/green-byzantine.webp",
+     "w": 272,
+     "h": 360,
+     "color": "#485441",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4939,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "pink-byzantine",
+     "name": "Pink Byzantine",
+     "image": "assets/rope-crosses/pink-byzantine.webp",
+     "w": 273,
+     "h": 360,
+     "color": "#ed8c9a",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4964,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "red-byzantine",
+     "name": "Red Byzantine",
+     "image": "assets/rope-crosses/red-byzantine.webp",
+     "w": 273,
+     "h": 360,
+     "color": "#ba242a",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4923,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "white-byzantine",
+     "name": "White Byzantine",
+     "image": "assets/rope-crosses/white-byzantine.webp",
+     "w": 273,
+     "h": 360,
+     "color": "#d8d7d3",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.501,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "yellow-byzantine",
+     "name": "Yellow Byzantine",
+     "image": "assets/rope-crosses/yellow-byzantine.webp",
+     "w": 272,
+     "h": 360,
+     "color": "#eeb009",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4977,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "black-celtic",
+     "name": "Black Celtic",
+     "image": "assets/rope-crosses/black-celtic.webp",
+     "w": 228,
+     "h": 360,
+     "color": "#2e3037",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.486,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "blue-celtic",
+     "name": "Blue Celtic",
+     "image": "assets/rope-crosses/blue-celtic.webp",
+     "w": 228,
+     "h": 360,
+     "color": "#14286e",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4855,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "brown-celtic",
+     "name": "Brown Celtic",
+     "image": "assets/rope-crosses/brown-celtic.webp",
+     "w": 227,
+     "h": 360,
+     "color": "#62453c",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4864,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "green-celtic",
+     "name": "Green Celtic",
+     "image": "assets/rope-crosses/green-celtic.webp",
+     "w": 226,
+     "h": 360,
+     "color": "#4c5a43",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4847,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "pink-celtic",
+     "name": "Pink Celtic",
+     "image": "assets/rope-crosses/pink-celtic.webp",
+     "w": 226,
+     "h": 360,
+     "color": "#f4849c",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.49,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "red-celtic",
+     "name": "Red Celtic",
+     "image": "assets/rope-crosses/red-celtic.webp",
+     "w": 227,
+     "h": 360,
+     "color": "#c22a2c",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4855,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "white-celtic",
+     "name": "White Celtic",
+     "image": "assets/rope-crosses/white-celtic.webp",
+     "w": 227,
+     "h": 360,
+     "color": "#dedcd9",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.483,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "yellow-celtic",
+     "name": "Yellow Celtic",
+     "image": "assets/rope-crosses/yellow-celtic.webp",
+     "w": 227,
+     "h": 360,
+     "color": "#f9bb02",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4847,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "black-chi-rho",
+     "name": "Black Chi Rho",
+     "image": "assets/rope-crosses/black-chi-rho.webp",
+     "w": 289,
+     "h": 360,
+     "color": "#2a2b30",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5617,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "blue-chi-rho",
+     "name": "Blue Chi Rho",
+     "image": "assets/rope-crosses/blue-chi-rho.webp",
+     "w": 289,
+     "h": 360,
+     "color": "#182f72",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5603,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "brown-chi-rho",
+     "name": "Brown Chi Rho",
+     "image": "assets/rope-crosses/brown-chi-rho.webp",
+     "w": 288,
+     "h": 360,
+     "color": "#5d4237",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5627,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "green-chi-rho",
+     "name": "Green Chi Rho",
+     "image": "assets/rope-crosses/green-chi-rho.webp",
+     "w": 288,
+     "h": 360,
+     "color": "#505e46",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5614,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "pink-chi-rho",
+     "name": "Pink Chi Rho",
+     "image": "assets/rope-crosses/pink-chi-rho.webp",
+     "w": 289,
+     "h": 360,
+     "color": "#f38a9e",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.56,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "red-chi-rho",
+     "name": "Red Chi Rho",
+     "image": "assets/rope-crosses/red-chi-rho.webp",
+     "w": 287,
+     "h": 360,
+     "color": "#b82924",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5621,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "white-chi-rho",
+     "name": "White Chi Rho",
+     "image": "assets/rope-crosses/white-chi-rho.webp",
+     "w": 290,
+     "h": 360,
+     "color": "#ddddd9",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5581,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "yellow-chi-rho",
+     "name": "Yellow Chi Rho",
+     "image": "assets/rope-crosses/yellow-chi-rho.webp",
+     "w": 289,
+     "h": 360,
+     "color": "#f8bd03",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5609,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "black-classic",
+     "name": "Black Classic",
+     "image": "assets/rope-crosses/black-classic.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#272930",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5048,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "blue-classic",
+     "name": "Blue Classic",
+     "image": "assets/rope-crosses/blue-classic.webp",
+     "w": 268,
+     "h": 360,
+     "color": "#1a2c64",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4966,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "brown-classic",
+     "name": "Brown Classic",
+     "image": "assets/rope-crosses/brown-classic.webp",
+     "w": 268,
+     "h": 360,
+     "color": "#56423b",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5054,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "green-classic",
+     "name": "Green Classic",
+     "image": "assets/rope-crosses/green-classic.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#4e5745",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4856,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "pink-classic",
+     "name": "Pink Classic",
+     "image": "assets/rope-crosses/pink-classic.webp",
+     "w": 269,
+     "h": 360,
+     "color": "#e38694",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4943,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "red-classic",
+     "name": "Red Classic",
+     "image": "assets/rope-crosses/red-classic.webp",
+     "w": 266,
+     "h": 360,
+     "color": "#c03131",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4955,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "white-classic",
+     "name": "White Classic",
+     "image": "assets/rope-crosses/white-classic.webp",
+     "w": 267,
+     "h": 360,
+     "color": "#dadad5",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5057,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "yellow-classic",
+     "name": "Yellow Classic",
+     "image": "assets/rope-crosses/yellow-classic.webp",
+     "w": 268,
+     "h": 360,
+     "color": "#efb109",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5055,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "black-coptic",
+     "name": "Black Coptic",
+     "image": "assets/rope-crosses/black-coptic.webp",
+     "w": 357,
+     "h": 360,
+     "color": "#2b2d31",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4984,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "blue-coptic",
+     "name": "Blue Coptic",
+     "image": "assets/rope-crosses/blue-coptic.webp",
+     "w": 356,
+     "h": 360,
+     "color": "#182d73",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4982,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "brown-coptic",
+     "name": "Brown Coptic",
+     "image": "assets/rope-crosses/brown-coptic.webp",
+     "w": 356,
+     "h": 360,
+     "color": "#61463c",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4985,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "green-coptic",
+     "name": "Green Coptic",
+     "image": "assets/rope-crosses/green-coptic.webp",
+     "w": 357,
+     "h": 360,
+     "color": "#515c44",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4989,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "pink-coptic",
+     "name": "Pink Coptic",
+     "image": "assets/rope-crosses/pink-coptic.webp",
+     "w": 357,
+     "h": 360,
+     "color": "#f08d9f",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4976,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "red-coptic",
+     "name": "Red Coptic",
+     "image": "assets/rope-crosses/red-coptic.webp",
+     "w": 356,
+     "h": 360,
+     "color": "#b42e29",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4993,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "white-coptic",
+     "name": "White Coptic",
+     "image": "assets/rope-crosses/white-coptic.webp",
+     "w": 357,
+     "h": 360,
+     "color": "#dad9d5",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "yellow-coptic",
+     "name": "Yellow Coptic",
+     "image": "assets/rope-crosses/yellow-coptic.webp",
+     "w": 360,
+     "h": 360,
+     "color": "#fac107",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5005,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "black-crucifix",
+     "name": "Black Crucifix",
+     "image": "assets/rope-crosses/black-crucifix.webp",
+     "w": 265,
+     "h": 360,
+     "color": "#2b2b30",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "blue-crucifix",
+     "name": "Blue Crucifix",
+     "image": "assets/rope-crosses/blue-crucifix.webp",
+     "w": 265,
+     "h": 360,
+     "color": "#182a64",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4956,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "brown-crucifix",
+     "name": "Brown Crucifix",
+     "image": "assets/rope-crosses/brown-crucifix.webp",
+     "w": 264,
+     "h": 360,
+     "color": "#684f47",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4989,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "green-crucifix",
+     "name": "Green Crucifix",
+     "image": "assets/rope-crosses/green-crucifix.webp",
+     "w": 264,
+     "h": 360,
+     "color": "#565f4a",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4983,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "pink-crucifix",
+     "name": "Pink Crucifix",
+     "image": "assets/rope-crosses/pink-crucifix.webp",
+     "w": 265,
+     "h": 360,
+     "color": "#db828d",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4952,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "red-crucifix",
+     "name": "Red Crucifix",
+     "image": "assets/rope-crosses/red-crucifix.webp",
+     "w": 265,
+     "h": 360,
+     "color": "#9d2725",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4948,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "white-crucifix",
+     "name": "White Crucifix",
+     "image": "assets/rope-crosses/white-crucifix.webp",
+     "w": 264,
+     "h": 360,
+     "color": "#d2d1cd",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4981,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "yellow-crucifix",
+     "name": "Yellow Crucifix",
+     "image": "assets/rope-crosses/yellow-crucifix.webp",
+     "w": 264,
+     "h": 360,
+     "color": "#f2ad03",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4994,
+       0.01
+      ]
+     }
+    }
+   ]
+  },
+  "rope-tassel": {
+   "label": "Tassel",
+   "items": [
+    {
+     "id": "black",
+     "name": "Black",
+     "image": "assets/rope-tassels/black.webp",
+     "w": 221,
+     "h": 360,
+     "color": "#20222a",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4427,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "blue",
+     "name": "Blue",
+     "image": "assets/rope-tassels/blue.webp",
+     "w": 303,
+     "h": 360,
+     "color": "#253061",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.2844,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "brown",
+     "name": "Brown",
+     "image": "assets/rope-tassels/brown.webp",
+     "w": 336,
+     "h": 360,
+     "color": "#513d35",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.516,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "green",
+     "name": "Green",
+     "image": "assets/rope-tassels/green.webp",
+     "w": 282,
+     "h": 360,
+     "color": "#334745",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4021,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "pink",
+     "name": "Pink",
+     "image": "assets/rope-tassels/pink.webp",
+     "w": 326,
+     "h": 360,
+     "color": "#be8697",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.4958,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "red",
+     "name": "Red",
+     "image": "assets/rope-tassels/red.webp",
+     "w": 313,
+     "h": 360,
+     "color": "#7d272a",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5114,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "white",
+     "name": "White",
+     "image": "assets/rope-tassels/white.webp",
+     "w": 307,
+     "h": 360,
+     "color": "#b9b8b6",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5293,
+       0.01
+      ]
+     }
+    },
+    {
+     "id": "yellow",
+     "name": "Yellow",
+     "image": "assets/rope-tassels/yellow.webp",
+     "w": 220,
+     "h": 360,
+     "color": "#d69742",
+     "extra": 0.0,
+     "anchors": {
+      "top": [
+       0.5487,
+       0.01
+      ]
+     }
     }
    ]
   },
@@ -1112,6 +2604,35 @@
      "color": "#1f1f23",
      "extra": 0,
      "gameId": "Black string"
+    },
+    {
+     "id": "red",
+     "name": "Red Cord",
+     "color": "#b41825",
+     "extra": 0
+    }
+   ]
+  },
+  "rope-cord": {
+   "label": "Cord",
+   "items": [
+    {
+     "id": "black",
+     "name": "Black Cord",
+     "color": "#1f1f23",
+     "extra": 0
+    },
+    {
+     "id": "white",
+     "name": "White Cord",
+     "color": "#f4f1ea",
+     "extra": 0
+    },
+    {
+     "id": "red",
+     "name": "Red Cord",
+     "color": "#b41825",
+     "extra": 0
     }
    ]
   }
@@ -1122,5 +2643,22 @@
   "center": "st-benedict",
   "cross": "st-benedict-crucifix",
   "cord": "black"
+ },
+ "types": {
+  "rosary": {
+   "label": "Rosary"
+  },
+  "rope": {
+   "label": "Orthodox Prayer Rope"
+  }
+ },
+ "typeDefaults": {
+  "rope": {
+   "beads": "black-wood",
+   "spacers": "black",
+   "cross": "black-3-bar",
+   "tassel": "black",
+   "cord": "black"
+  }
  }
 }

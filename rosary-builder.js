@@ -17,7 +17,36 @@
   const SVG_H = 680;
   const STAGE = '#ece4d4';
   const MAX_ZOOM = 5;
-  const GROUPS = ['beads', 'heads', 'center', 'cross', 'cord'];
+  // Each rosary type has its own parts ("roles"), the catalog group each role reads from, its labels and its layout.
+  // A role is a tab in the builder; for the rosary the role and the catalog group have the same name.
+  const TYPES = {
+    rosary: {
+      id: 'rosary', label: 'Rosary', short: 'Rosary', sectionKey: 'decades', sectionCount: 5, sectionLabel: 'Decade', tailLabel: 'Tail',
+      roles: ['beads', 'heads', 'center', 'cross', 'cord'],
+      group: { beads: 'beads', heads: 'heads', center: 'center', cross: 'cross', cord: 'cord' },
+      names: { beads: 'Beads', heads: 'Our Father beads', center: 'Centerpiece', cross: 'Crucifix', cord: 'Cord' }
+    },
+    rope: {
+      id: 'rope', label: 'Orthodox Prayer Rope', short: 'Prayer Rope', sectionKey: 'sections', sectionCount: 3, sectionLabel: 'Section', tailLabel: 'Bottom bead',
+      roles: ['beads', 'spacers', 'cross', 'tassel', 'cord'],
+      group: { beads: 'rope-beads', spacers: 'rope-spacers', cross: 'rope-cross', tassel: 'rope-tassel', cord: 'rope-cord' },
+      names: { beads: 'Jesus beads', spacers: 'Spacers', cross: 'Cross', tassel: 'Tassel', cord: 'Cord' }
+    }
+  };
+  // Small line icons for the tabs and the type switch (24x24, drawn with the text colour).
+  const ICONS = {
+    rosary: '<ellipse cx="12" cy="8.5" rx="6.2" ry="6" stroke-width="2.6" stroke-dasharray="0.01 3.1"/><path d="M12 14.6V17M9.8 20h4.4M12 17v5"/>',
+    rope: '<circle cx="12" cy="8" r="6" stroke-width="2.6" stroke-dasharray="0.01 3.1"/><path d="M12 14v2M12 16.5l-3 3.5h6z" stroke-width="1.5"/><path d="M12 19.5v2.5" />',
+    beads: '<circle cx="12" cy="12" r="7.5"/><path d="M8.6 9.4a4.4 4.4 0 0 1 3-2.1" stroke-linecap="round"/>',
+    heads: '<circle cx="12" cy="12" r="7.5"/><path d="M12 8.2v7.6M8.2 11h7.6"/>',
+    center: '<path d="M12 5.2c3.4 0 5.4 2.9 5.4 6.6S15.4 19 12 19s-5.4-3.5-5.4-7.2S8.6 5.2 12 5.2z"/><circle cx="12" cy="3.2" r="1.4"/><path d="M12 9v6M9.6 11.2h4.8"/>',
+    cross: '<path d="M12 3v18M7 8.5h10"/>',
+    spacers: '<path d="M10 3.5h4v5h5v4h-5v8h-4v-8H5v-4h5z" stroke-linejoin="round"/>',
+    tassel: '<path d="M12 2.8v2.6M9.4 5.4h5.2l.8 3.2H8.6zM8.6 8.6L5.8 21h12.4l-2.8-12.4"/><path d="M10.6 12v7M13.4 12v7"/>',
+    cord: '<path d="M3 14.5c3-8.5 6-8.5 9 0s6 8.5 9 0"/>'
+  };
+  const icon = (name) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] || ''}</svg>`;
+  const ROLE_OF_KIND = { bead: 'beads', head: 'heads', spacer: 'spacers', center: 'center' };
   const DRAFT_KEY = 'rosary-builder-draft-v2';
 
   /* ------------------------------------------------------------------ catalog */
@@ -186,6 +215,48 @@
   LAYOUT.forEach((s, i) => { ORDER[s.id] = i; });
   ORDER.Cross = LAYOUT.length;
 
+  // Orthodox prayer rope: a circle of 3 sections x 11 "Jesus beads", a cross "spacer" before each section (one at the
+  // bottom), then one more bead, the cross and the tassel hanging below the bottom spacer.
+  const ROPE_CX = 200, ROPE_CY = 178, ROPE_RX = 138, ROPE_RY = 166, ROPE_N = 36;
+  const ROPE_BOTTOM = ROPE_CY + ROPE_RY;
+  const ROPE_CROSS_BOX = [50, 92], ROPE_TASSEL_BOX = [58, 120];
+  // The loop hangs under its own weight: widest near the top, narrowing towards the bottom (like the rosary).
+  function ropePoint(phi) {
+    const narrow = 1 - 0.34 * Math.pow(Math.max(0, Math.cos(phi)), 1.6);
+    return [ROPE_CX - ROPE_RX * Math.sin(phi) * narrow, ROPE_CY + ROPE_RY * Math.cos(phi)];
+  }
+  function buildRope() {
+    const steps = 1800, pts = [], cum = [0];
+    for (let k = 0; k <= steps; k++) {
+      pts.push(ropePoint((k / steps) * 2 * Math.PI));
+      if (k > 0) cum.push(cum[k - 1] + Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]));
+    }
+    const total = cum[steps];
+    const at = (d) => {
+      let k = 1;
+      while (k < steps && cum[k] < d) k++;
+      const f = (d - cum[k - 1]) / ((cum[k] - cum[k - 1]) || 1);
+      return [pts[k - 1][0] + (pts[k][0] - pts[k - 1][0]) * f, pts[k - 1][1] + (pts[k][1] - pts[k - 1][1]) * f];
+    };
+    const slots = [];
+    for (let i = 0; i < ROPE_N; i++) {
+      const [x, y] = at((i / ROPE_N) * total);   // equal spacing along the loop; i = 0 is the bottom, running clockwise
+      if (i % 12 === 0) slots.push({ id: `Bead-${i}`, kind: 'spacer', x, y, r: 12.5, decade: null });
+      else slots.push({ id: `Bead-${i}`, kind: 'bead', x, y, r: 10, decade: Math.floor((i - 1) / 12) });
+    }
+    slots.push({ id: `Bead-${ROPE_N}`, kind: 'bead', x: ROPE_CX, y: ROPE_BOTTOM + 27, r: 10, decade: 'tail' });
+    const order = {};
+    slots.forEach((sl, i) => { order[sl.id] = i; });
+    order.Tassel = slots.length;
+    order.Cross = slots.length + 1;
+    const path = 'M' + pts.filter((_, k) => k % 6 === 0).map((p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join('L') + 'Z';
+    return { slots, tail: slots.slice(ROPE_N), order, glide: [], path };
+  }
+  const LAYOUTS = {
+    rosary: { slots: LAYOUT, tail: TAIL, order: ORDER, glide: TAIL.map((sl) => sl.id).concat('Cross') },
+    rope: buildRope()
+  };
+
   // Where the loop's cord ends tie on: the ear holes of the centerpiece photo sit on this line.
   const EAR_Y = LOOP_BOTTOM - 6;
   const CENTER_BOX = [54, 72];
@@ -216,10 +287,10 @@
   }
 
   // Hang a crucifix photo by its top hole.
-  function placeCross(item, hx, hy) {
+  function placeCross(item, hx, hy, box) {
     const a = item.anchors;
     if (item.image && a && a.top) {
-      const [w, h] = fit(item, CROSS_BOX[0], CROSS_BOX[1]);
+      const [w, h] = fit(item, (box || CROSS_BOX)[0], (box || CROSS_BOX)[1]);
       return { rect: { x: hx - a.top[0] * w, y: hy - a.top[1] * h, w, h }, x: hx, y: hy };
     }
     return { rect: null, x: hx, y: hy + 41 }; // drawn cross: its ring is 38 above its centre
@@ -247,6 +318,17 @@
       s += `<ellipse cx="${hx}" cy="${hy}" rx="${r * 0.28}" ry="${r * 0.17}" fill="#fff" opacity="${f === 'pearl' ? 0.55 : 0.6}" transform="rotate(-30 ${hx} ${hy})"/>`;
     }
     return s + '</g>';
+  }
+
+  // A cross-shaped spacer photo, fitted into a square of side 2r
+  function spacerSvg(x, y, r, item, attrs, src) {
+    const [w, h] = fit(item, r * 2, r * 2);
+    return `<g ${attrs}><image href="${esc(src(item.image))}" x="${x - w / 2}" y="${y - h / 2}" width="${w}" height="${h}" style="${PHOTO_SHADOW}"/></g>`;
+  }
+
+  function tasselSvg(item, attrs, src, rect, swatch) {
+    const [w, h] = rect ? [rect.w, rect.h] : fit(item, swatch[0], swatch[1]);
+    return `<g ${attrs}><image href="${esc(src(item.image))}" x="${rect ? rect.x : -w / 2}" y="${rect ? rect.y : -h / 2}" width="${w}" height="${h}" style="${PHOTO_SHADOW}"/></g>`;
   }
 
   function centerSvg(item, id, x, y, scale, attrs, src, rect) {
@@ -314,11 +396,16 @@ button{font:inherit;color:inherit;cursor:pointer}
 .zoombar .zreset{width:auto;border-radius:18px;padding:0 13px;height:34px;font-size:13px;font-family:inherit;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .2s,transform .2s}
 .zoombar .zreset.show{opacity:1;pointer-events:auto;transform:none}
 .stage [data-group]{cursor:pointer;transition:filter .25s}
-.stage svg[data-active="beads"] [data-group]:not([data-group="beads"]),
-.stage svg[data-active="heads"] [data-group]:not([data-group="heads"]),
-.stage svg[data-active="center"] [data-group]:not([data-group="center"]),
-.stage svg[data-active="cross"] [data-group]:not([data-group="cross"]){filter:saturate(.72) brightness(.9)}
+.stage svg .dim{filter:saturate(.72) brightness(.9)}
 .panel{min-width:0;background:var(--rb-card);border:1px solid var(--rb-border);border-radius:18px;padding:16px}
+.types{display:flex;gap:4px;margin-bottom:12px;padding:4px;background:#211e1a;border:1px solid var(--rb-border);border-radius:999px}
+.type{flex:1 1 0;border:0;background:transparent;border-radius:999px;padding:9px 10px;font-size:14px;line-height:1.1;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,color .2s}
+.type:not(.on):hover{background:rgba(201,162,74,.12)}
+.type .ic{width:22px;height:22px}
+.type .short{display:none}
+.ic{width:18px;height:18px;flex:0 0 auto}
+.tab{display:inline-flex;align-items:center;gap:7px}
+.type.on{background:var(--rb-accent);color:#1a1408;font-weight:700}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
 .tab{flex:0 0 auto;border:1px solid var(--rb-border);background:transparent;border-radius:999px;padding:8px 14px;font-size:14px;white-space:nowrap}
 .tab.on{background:var(--rb-accent);border-color:var(--rb-accent);color:#1a1408;font-weight:700}
@@ -358,10 +445,11 @@ button{font:inherit;color:inherit;cursor:pointer}
  .stage{position:relative;top:auto;height:100%;min-height:0}
  .stage svg{height:100%;max-height:none}
  .panel{height:100%;min-height:0;display:flex;flex-direction:column}
- .tabs,.targets,.sum,.row,.msg{flex:none}
+ .types,.tabs,.targets,.sum,.row,.msg{flex:none}
  .opts{flex:1 1 auto;min-height:0;overflow-y:auto;align-content:start;padding-right:4px;overscroll-behavior:contain}
 }
 @container rb (max-width:700px){
+ .type .full{display:none}.type .short{display:inline}.type{padding:9px 6px}
  /* Narrow layout (decided by the builder's own width, not the window): rosary pinned on top, swipeable option rows below, sticky buy bar. */
  .rb{grid-template-columns:minmax(0,1fr);gap:10px}
  .stage{top:0;padding:4px;border-radius:0 0 18px 18px;height:min(44vh,400px);height:min(44dvh,400px)}
@@ -508,65 +596,116 @@ button{font:inherit;color:inherit;cursor:pointer}
 
     async _setCatalog(cat) {
       this._catalog = cat;
-      this._items = {};
+      this._byGroup = {};
       let defs = '';
-      GROUPS.forEach((g) => {
-        const list = (cat.groups[g] && cat.groups[g].items) || [];
-        this._items[g] = {};
-        list.forEach((it) => {
-          this._items[g][it.id] = it;
+      Object.keys(cat.groups).forEach((g) => {
+        this._byGroup[g] = {};
+        (cat.groups[g].items || []).forEach((it) => {
+          this._byGroup[g][it.id] = it;
           if (!it.image) defs += gradientDef(gid(g, it), it);
         });
       });
       this._defs = defs;
+      // Only offer the rosary types whose parts all exist in the catalog (an old catalog has just the rosary).
+      this._typeIds = Object.keys(TYPES).filter((t) => TYPES[t].roles.every((r) => cat.groups[TYPES[t].group[r]]));
       this._prevSlots = null;
+      this._prevPos = null;
       this._enter = true;
-      this._state = this._loadDraft() || this._defaults();
-      // Wait for the selected photos so the opening animation never shows empty slots.
-      const s = this._state;
-      const wanted = [...new Set([s.beads, s.tail, ...s.decades])].filter(Boolean).map((id) => this._items.beads[id])
-        .concat(this._items.heads[s.heads], this._items.center[s.center], this._items.cross[s.cross])
-        .map((it) => it && it.image).filter(Boolean);
-      const everything = GROUPS.flatMap((g) => Object.values(this._items[g]).map((it) => it.image)).filter(Boolean);
+      const draft = this._loadDraft();
+      this._states = draft ? draft.states : {};
+      this._type = draft ? draft.type : 'rosary';
+      this._bindType();
+      const everything = Object.values(this._byGroup).flatMap((m) => Object.values(m).map((it) => it.image)).filter(Boolean);
       this._preload(everything, 20000);
-      await this._preload(wanted, 4000);
+      // Wait for the selected photos so the opening animation never shows empty slots.
+      await this._preload(this._wantedImages(), 4000);
       this._build();
       this._fit();
       this._render();
       this._revealOnce();
     }
 
-    _defaults() {
-      const s = { decades: [null, null, null, null, null], tail: null };
-      GROUPS.forEach((g) => {
-        const items = this._catalog.groups[g].items;
-        const wanted = this._catalog.defaults && this._catalog.defaults[g];
+    _wantedImages() {
+      const s = this._state;
+      const T = this._T;
+      const beads = [...new Set([s.beads, s.tail, ...s[T.sectionKey]])].filter(Boolean).map((id) => this._items.beads[id]);
+      return beads.concat(T.roles.filter((r) => r !== 'beads' && r !== 'cord').map((r) => this._items[r][s[r]])).map((it) => it && it.image).filter(Boolean);
+    }
+
+    // Points the builder at the current rosary type: its parts, its layout and its own design state.
+    _bindType() {
+      const T = TYPES[this._type];
+      this._T = T;
+      this._L = LAYOUTS[T.id];
+      this._items = {};
+      T.roles.forEach((r) => { this._items[r] = this._byGroup[T.group[r]]; });
+      if (!this._states[T.id]) this._states[T.id] = this._defaults(T.id);
+      this._state = this._states[T.id];
+    }
+
+    _gid(role, it) { return gid(this._T.group[role], it); }
+
+    _defaults(typeId) {
+      const T = TYPES[typeId];
+      const s = { [T.sectionKey]: new Array(T.sectionCount).fill(null), tail: null };
+      const wanted = typeId === 'rosary' ? this._catalog.defaults : ((this._catalog.typeDefaults || {})[typeId]);
+      T.roles.forEach((r) => {
+        const map = this._byGroup[T.group[r]];
+        const items = this._catalog.groups[T.group[r]].items;
         const ok = (it) => it && !it.soldOut;
         const first = items.find(ok);
-        s[g] = (wanted && ok(this._items[g][wanted]) ? wanted : null) || (first && first.id) || (items[0] && items[0].id);
+        const w = wanted && wanted[r];
+        s[r] = (w && ok(map[w]) ? w : null) || (first && first.id) || (items[0] && items[0].id);
       });
       return s;
     }
 
     // Items marked soldOut in catalog.json are shown with a tag and cannot be chosen
-    _soldOut(g, id) { const it = id && this._items[g] && this._items[g][id]; return !!(it && it.soldOut); }
+    _soldOut(role, id) { const it = id && this._items[role] && this._items[role][id]; return !!(it && it.soldOut); }
+
+    // A saved state is only used when every part still exists and is in stock.
+    _validState(typeId, s) {
+      const T = TYPES[typeId];
+      if (!s || typeof s !== 'object') return null;
+      const bad = (role, id) => { const it = this._byGroup[T.group[role]][id]; return !it || it.soldOut; };
+      for (const r of T.roles) if (bad(r, s[r])) return null;
+      const secs = s[T.sectionKey];
+      if (!Array.isArray(secs) || secs.length !== T.sectionCount) return null;
+      if (secs.some((d) => d && bad('beads', d))) return null;
+      s.tail = s.tail && !bad('beads', s.tail) ? s.tail : null;
+      return s;
+    }
 
     _loadDraft() {
       try {
         const raw = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
         if (!raw || raw.product !== this._catalog.product) return null;
-        const s = raw.state;
-        for (const g of GROUPS) if (!this._items[g][s[g]] || this._soldOut(g, s[g])) return null;   // a saved design with a now sold-out part starts fresh
-        if (!Array.isArray(s.decades) || s.decades.length !== 5) return null;
-        if (s.decades.some((d) => d && (!this._items.beads[d] || this._soldOut('beads', d)))) return null;
-        if (s.tail && (!this._items.beads[s.tail] || this._soldOut('beads', s.tail))) s.tail = null;
-        if (!s.tail) s.tail = null;
-        return s;
+        const saved = raw.states || (raw.state ? { rosary: raw.state } : {});   // older drafts hold just the rosary
+        const states = {};
+        Object.keys(saved).forEach((t) => { if (this._typeIds.includes(t)) { const v = this._validState(t, saved[t]); if (v) states[t] = v; } });
+        return { type: this._typeIds.includes(raw.type) ? raw.type : 'rosary', states };
       } catch (e) { return null; }
     }
 
     _saveDraft() {
-      try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ product: this._catalog.product, state: this._state })); } catch (e) { /* storage unavailable */ }
+      try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ product: this._catalog.product, type: this._type, states: this._states })); } catch (e) { /* storage unavailable */ }
+    }
+
+    // Switch between rosary types. Each type keeps its own design while you look at the other.
+    setType(id) {
+      if (!this._built || id === this._type || !this._typeIds.includes(id)) return;
+      this._type = id;
+      this._bindType();
+      this._tab = 'beads';
+      this._target = 'all';
+      this._enter = true;
+      this._prevSlots = null;
+      this._prevPos = null;
+      this._origin = null;
+      this._tweenId++;
+      this._view = { k: 1, x: 0, y: 0 };
+      this._applyView();
+      this._preload(this._wantedImages(), 3000).then(() => this._changed());
     }
 
     /* ------------------------------------------------------------------ DOM */
@@ -579,6 +718,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     <div class="zoombar"><button data-act="zoomin" type="button" aria-label="Zoom in" title="Zoom in">+</button><button data-act="zoomout" type="button" aria-label="Zoom out" title="Zoom out" disabled>−</button><button class="zreset" data-act="zoomreset" type="button" aria-label="Reset view">Reset view</button></div>
   </div>
   <div class="panel">
+    <div class="types" role="tablist" aria-label="Rosary type"></div>
     <div class="tabs" role="tablist"></div>
     <div class="targets"></div>
     <div class="opts"></div>
@@ -594,6 +734,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         zoomIn: root.querySelector('[data-act=zoomin]'),
         zoomOut: root.querySelector('[data-act=zoomout]'),
         zoomReset: root.querySelector('[data-act=zoomreset]'),
+        types: root.querySelector('.types'),
         tabs: root.querySelector('.tabs'),
         targets: root.querySelector('.targets'),
         opts: root.querySelector('.opts'),
@@ -613,7 +754,8 @@ button{font:inherit;color:inherit;cursor:pointer}
         const a = act.dataset.act;
         const rect = act.getBoundingClientRect();
         this._origin = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
-        if (a === 'tab') { this._tab = act.dataset.tab; this._target = 'all'; this._enter = true; this._render(); }
+        if (a === 'type') this.setType(act.dataset.type);
+        else if (a === 'tab') { this._tab = act.dataset.tab; this._target = 'all'; this._enter = true; this._render(); }
         else if (a === 'target') { this._target = act.dataset.target; this._render(); }
         else if (a === 'pick') this._pick(act.dataset.id);
         else if (a === 'reset') this.reset();
@@ -628,7 +770,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       if (hit) {
         if (this._suppressClick) return; // that was the end of a pan, not a tap
         this._tab = hit.dataset.group;
-        const mixed = this._state.decades.some(Boolean) || !!this._state.tail;
+        const mixed = this._state[this._T.sectionKey].some(Boolean) || !!this._state.tail;
         this._target = this._tab === 'beads' && mixed && hit.dataset.decade !== undefined ? hit.dataset.decade : 'all';
         this._render();
       }
@@ -639,11 +781,12 @@ button{font:inherit;color:inherit;cursor:pointer}
       try { if (navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate(8); } catch (e) { /* not supported */ }
       const g = this._tab;
       const s = this._state;
+      const sk = this._T.sectionKey;
       if (g === 'beads' && this._target === 'tail') s.tail = id;
-      else if (g === 'beads' && this._target !== 'all') s.decades[Number(this._target)] = id;
+      else if (g === 'beads' && this._target !== 'all') s[sk][Number(this._target)] = id;
       else {
         s[g] = id;
-        if (g === 'beads') { s.decades = [null, null, null, null, null]; s.tail = null; }
+        if (g === 'beads') { s[sk] = new Array(this._T.sectionCount).fill(null); s.tail = null; }
       }
       this._changed();
     }
@@ -659,28 +802,29 @@ button{font:inherit;color:inherit;cursor:pointer}
 
     _beadItem(decade) {
       const s = this._state;
-      const own = decade === 'tail' ? s.tail : decade != null ? s.decades[decade] : null;
+      const own = decade === 'tail' ? s.tail : decade != null ? s[this._T.sectionKey][decade] : null;
       const id = own || s.beads;
       return this._items.beads[id];
     }
 
     _itemFor(slot) {
       const s = this._state;
-      if (slot.kind === 'center') return this._items.center[s.center];
-      if (slot.kind === 'head') return this._items.heads[s.heads];
-      return this._beadItem(slot.decade);
+      if (slot.kind === 'bead') return this._beadItem(slot.decade);
+      const role = ROLE_OF_KIND[slot.kind];
+      return this._items[role][s[role]];
     }
 
     // Positions of every moving part, from the chosen centerpiece's holes down to the crucifix's top hole.
     _computeGeo() {
+      if (this._T.id === 'rope') return this._computeGeoRope();
       const s = this._state;
       const c = placeCenter(this._items.center[s.center]);
       const pos = {};
-      LAYOUT.forEach((sl) => { pos[sl.id] = [sl.x, sl.y]; });
+      this._L.slots.forEach((sl) => { pos[sl.id] = [sl.x, sl.y]; });
       pos.Center = [c.cx, c.cy];
       let y = c.bottom[1] + 18;
       let prevR = 9;
-      TAIL.forEach((sl, i) => {
+      this._L.tail.forEach((sl, i) => {
         if (i > 0) y += prevR + sl.r + 2.4;
         pos[sl.id] = [c.bottom[0], y];
         prevR = sl.r;
@@ -691,35 +835,81 @@ button{font:inherit;color:inherit;cursor:pointer}
       this._geo = { c, pos, tailEnd, cross };
     }
 
+    _computeGeoRope() {
+      const s = this._state;
+      const pos = {};
+      this._L.slots.forEach((sl) => { pos[sl.id] = [sl.x, sl.y]; });
+      const last = this._L.tail[0];
+      const hy = last.y + last.r + 3;
+      const cross = placeCross(this._items.cross[s.cross], ROPE_CX, hy, ROPE_CROSS_BOX);
+      const bottom = cross.rect ? cross.rect.y + cross.rect.h : hy + 60;
+      const ti = this._items.tassel[s.tassel];
+      const [tw, th] = fit(ti, ROPE_TASSEL_BOX[0], ROPE_TASSEL_BOX[1]);
+      const ax = (ti.anchors && ti.anchors.top) ? ti.anchors.top[0] : 0.5;   // where the tassel's top cap is
+      const tassel = { x: ROPE_CX - ax * tw, y: bottom - 7, w: tw, h: th };
+      pos.Cross = [ROPE_CX, hy];
+      pos.Tassel = [ROPE_CX, tassel.y + th / 2];
+      this._geo = { pos, cross, tassel, hy };
+    }
+
+    // data-group elements of the other tabs are dimmed (class "dim") while a tab is open
+    _dim(role) { return this._tab === 'cord' || role === this._tab ? '' : ' class="dim"'; }
+
+    _ropeScene() {
+      const { cross, tassel, hy } = this._geo;
+      const s = this._state;
+      const src = (u) => this._src(u);
+      const wc = this._items.cord[s.cord].color;
+      const bottom = ROPE_BOTTOM;
+      let m = `<g data-group="cord"${this._dim('cord')}>` +
+        `<path d="${this._L.path}" fill="none" stroke="${darken(wc, 0.4)}" stroke-width="3.2" stroke-linejoin="round"/>` +
+        `<path d="${this._L.path}" fill="none" stroke="${lighten(wc, 0.25)}" stroke-width="1.6" stroke-linejoin="round"/>` +
+        `<path d="M${ROPE_CX} ${bottom}V${hy.toFixed(1)}" stroke="${darken(wc, 0.4)}" stroke-width="3.2"/>` +
+        `<path d="M${ROPE_CX} ${bottom}V${hy.toFixed(1)}" stroke="${lighten(wc, 0.25)}" stroke-width="1.6"/></g>`;
+      this._L.slots.forEach((sl) => {
+        const it = this._itemFor(sl);
+        const role = ROLE_OF_KIND[sl.kind];
+        const dec = sl.decade != null ? ` data-decade="${sl.decade}"` : '';
+        const attrs = `data-group="${role}"${dec} data-slot="${sl.id}"${this._dim(role)}`;
+        m += sl.kind === 'spacer' ? spacerSvg(sl.x, sl.y, sl.r, it, attrs, src) : beadSvg(sl.x, sl.y, sl.r, it, this._gid('beads', it), attrs, src);
+      });
+      m += tasselSvg(this._items.tassel[s.tassel], `data-group="tassel" data-slot="Tassel"${this._dim('tassel')}`, src, tassel);
+      const xi = this._items.cross[s.cross];
+      m += crossSvg(xi, this._gid('cross', xi), cross.x, cross.y, 1, `data-group="cross" data-slot="Cross"${this._dim('cross')}`, src, cross.rect);
+      return m;
+    }
+
     _sceneMarkup() {
       this._computeGeo();
+      if (this._T.id === 'rope') return this._ropeScene();
       const { c, pos, tailEnd, cross } = this._geo;
       const wc = this._items.cord[this._state.cord].color;
       const loop = loopCord(c.earL, c.earR);
       const tail = `M${c.bottom[0].toFixed(1)} ${c.bottom[1].toFixed(1)}V${tailEnd.toFixed(1)}`;
-      let m = `<g data-group="cord"><path d="${loop}" fill="none" stroke="${darken(wc, 0.4)}" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>` +
+      let m = `<g data-group="cord"${this._dim('cord')}><path d="${loop}" fill="none" stroke="${darken(wc, 0.4)}" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>` +
         `<path d="${loop}" fill="none" stroke="${lighten(wc, 0.25)}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>` +
         `<path d="${tail}" stroke="${darken(wc, 0.4)}" stroke-width="3.2"/>` +
         `<path d="${tail}" stroke="${lighten(wc, 0.25)}" stroke-width="1.6"/></g>`;
       const src = (u) => this._src(u);
-      LAYOUT.forEach((sl) => {
+      this._L.slots.forEach((sl) => {
         if (sl.kind === 'center') return;
         const g = sl.kind === 'head' ? 'heads' : 'beads';
         const it = this._itemFor(sl);
         const dec = sl.decade != null ? ` data-decade="${sl.decade}"` : '';
-        m += beadSvg(pos[sl.id][0], pos[sl.id][1], sl.r, it, gid(g, it), `data-group="${g}"${dec} data-slot="${sl.id}"`, src);
+        m += beadSvg(pos[sl.id][0], pos[sl.id][1], sl.r, it, gid(g, it), `data-group="${g}"${dec} data-slot="${sl.id}"${this._dim(g)}`, src);
       });
       const ci = this._items.center[this._state.center];
-      m += centerSvg(ci, gid('center', ci), CX, LOOP_BOTTOM + 8, 1.3, 'data-group="center" data-slot="Center"', src, c.rect);
+      m += centerSvg(ci, gid('center', ci), CX, LOOP_BOTTOM + 8, 1.3, `data-group="center" data-slot="Center"${this._dim('center')}`, src, c.rect);
       const xi = this._items.cross[this._state.cross];
-      m += crossSvg(xi, gid('cross', xi), cross.x, cross.y, 1, 'data-group="cross" data-slot="Cross"', src, cross.rect);
+      m += crossSvg(xi, gid('cross', xi), cross.x, cross.y, 1, `data-group="cross" data-slot="Cross"${this._dim('cross')}`, src, cross.rect);
       return m;
     }
 
     _slotMap() {
       const m = {};
-      LAYOUT.forEach((sl) => { m[sl.id] = this._itemFor(sl).id; });
+      this._L.slots.forEach((sl) => { m[sl.id] = this._itemFor(sl).id; });
       m.Cross = this._state.cross;
+      if (this._T.id === 'rope') m.Tassel = this._state.tassel;
       return m;
     }
 
@@ -974,7 +1164,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       const svg = this._$.view;
       const from = intro ? null : this._svgPoint(this._origin);
       this._origin = null;
-      const order = ids.slice().sort((a, b) => ORDER[a] - ORDER[b]);
+      const order = ids.slice().sort((a, b) => this._L.order[a] - this._L.order[b]);
       const step = Math.min(16, 560 / order.length);
       order.forEach((id, n) => {
         const el = svg.querySelector(`[data-slot="${id}"]`);
@@ -987,7 +1177,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         const delay = n * step + (intro ? 150 : 0);
         const mid = `translate(${dx * 0.5}px,${dy * 0.5 - arc}px)`;
         el.style.transformBox = 'fill-box';
-        el.style.transformOrigin = id === 'Cross' ? '50% 0%' : '50% 50%';
+        el.style.transformOrigin = id === 'Cross' || id === 'Tassel' ? '50% 0%' : '50% 50%';
         let frames;
         let duration;
         if (id === 'Cross') {
@@ -1028,7 +1218,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       if (!prevPos) return;
       if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const skipped = new Set(skip);
-      TAIL.map((sl) => sl.id).concat('Cross').forEach((id) => {
+      this._L.glide.forEach((id) => {
         const o = prevPos[id];
         const n = this._geo.pos[id];
         if (skipped.has(id) || !o || !n) return;
@@ -1056,6 +1246,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       if (!this._built) return;
       const $ = this._$;
       const cat = this._catalog;
+      const T = this._T;
       $.stage.setAttribute('data-active', this._tab);
       $.view.innerHTML = this._sceneMarkup();
       const slotMap = this._slotMap();
@@ -1067,8 +1258,11 @@ button{font:inherit;color:inherit;cursor:pointer}
       this._animate(changed, !prev);
       this._glide(changed, prevPos);
 
-      $.tabs.innerHTML = GROUPS.map((g) =>
-        `<button class="tab${g === this._tab ? ' on' : ''}" role="tab" aria-selected="${g === this._tab}" data-act="tab" data-tab="${g}" type="button">${esc(cat.groups[g].label)}</button>`).join('');
+      $.types.style.display = this._typeIds.length > 1 ? '' : 'none';
+      $.types.innerHTML = this._typeIds.map((t) =>
+        `<button class="type${t === this._type ? ' on' : ''}" role="tab" aria-selected="${t === this._type}" data-act="type" data-type="${t}" type="button">${icon(t)}<span class="full">${esc((cat.types && cat.types[t] && cat.types[t].label) || TYPES[t].label)}</span><span class="short">${esc(TYPES[t].short)}</span></button>`).join('');
+      $.tabs.innerHTML = T.roles.map((g) =>
+        `<button class="tab${g === this._tab ? ' on' : ''}" role="tab" aria-selected="${g === this._tab}" data-act="tab" data-tab="${g}" type="button">${icon(g)}<span>${esc(cat.groups[T.group[g]].label)}</span></button>`).join('');
 
       const s = this._state;
       const showTargets = this._tab === 'beads';
@@ -1077,23 +1271,25 @@ button{font:inherit;color:inherit;cursor:pointer}
         const dot = (d) => `<i style="background:${this._beadItem(d).color || '#888'}"></i>`;
         $.targets.innerHTML = '<span>Apply to</span>' +
           `<button class="chip${this._target === 'all' ? ' on' : ''}" data-act="target" data-target="all" type="button">All beads</button>` +
-          [0, 1, 2, 3, 4].map((d) => `<button class="chip${String(d) === this._target ? ' on' : ''}" data-act="target" data-target="${d}" type="button">${dot(d)}Decade ${d + 1}</button>`).join('') +
-          `<button class="chip${this._target === 'tail' ? ' on' : ''}" data-act="target" data-target="tail" type="button">${dot('tail')}Tail</button>`;
+          Array.from({ length: T.sectionCount }, (_, d) => d).map((d) => `<button class="chip${String(d) === this._target ? ' on' : ''}" data-act="target" data-target="${d}" type="button">${dot(d)}${T.sectionLabel} ${d + 1}</button>`).join('') +
+          `<button class="chip${this._target === 'tail' ? ' on' : ''}" data-act="target" data-target="tail" type="button">${dot('tail')}${T.tailLabel}</button>`;
       }
 
       const g = this._tab;
       const selected = g === 'beads' && this._target !== 'all' ? this._beadItem(this._target === 'tail' ? 'tail' : Number(this._target)).id : s[g];
       const src = (u) => this._src(u);
       const swatch = (it) => {
-        const id = gid(g, it);
+        const id = this._gid(g, it);
         if (g === 'beads' || g === 'heads') return `<svg viewBox="-13 -13 26 26">${beadSvg(0, 0, 10, it, id, '', src)}</svg>`;
+        if (g === 'spacers') return `<svg viewBox="-13 -13 26 26">${spacerSvg(0, 0, 11, it, '', src)}</svg>`;
+        if (g === 'tassel') return `<svg viewBox="-22 -30 44 60">${tasselSvg(it, '', src, null, [40, 56])}</svg>`;
         if (g === 'center') return `<svg viewBox="${it.image ? '-20 -26 40 52' : '-19 -19 38 38'}">${centerSvg(it, id, 0, 0, 1, '', src)}</svg>`;
         if (g === 'cross') return `<svg viewBox="${it.image ? '-30 -48 60 96' : '-26 -46 52 92'}">${crossSvg(it, id, 0, 0, 1, '', src)}</svg>`;
         return `<svg viewBox="-14 -14 28 28"><path d="M-11 6Q0 -12 11 6" fill="none" stroke="${darken(it.color, 0.3)}" stroke-width="4.5" stroke-linecap="round"/><path d="M-11 6Q0 -12 11 6" fill="none" stroke="${it.color}" stroke-width="3" stroke-linecap="round"/></svg>`;
       };
       $.opts.classList.toggle('enter', !!this._enter);
       this._enter = false;
-      $.opts.innerHTML = cat.groups[g].items.map((it, i) =>
+      $.opts.innerHTML = cat.groups[T.group[g]].items.map((it, i) =>
         `<button class="opt${it.id === selected ? ' on' : ''}${it.soldOut ? ' sold' : ''}" style="--i:${i}" data-act="pick" data-id="${esc(it.id)}" aria-pressed="${it.id === selected}"${it.soldOut ? ' disabled aria-disabled="true"' : ''} type="button">` +
         `${it.soldOut ? '<span class="tag-sold">Sold out</span>' : ''}<span class="sw">${swatch(it)}</span><span class="nm">${esc(it.name)}</span>` +
         `${it.extra ? `<span class="ex">+${this._fmt(it.extra)}</span>` : ''}</button>`).join('');
@@ -1122,36 +1318,38 @@ button{font:inherit;color:inherit;cursor:pointer}
 
     _price() {
       const s = this._state;
-      const used = (g, ids) => [...new Set(ids.filter(Boolean))].reduce((t, id) => t + (this._items[g][id].extra || 0), 0);
-      return Math.round((this._catalog.basePrice +
-        used('beads', [s.beads, s.tail, ...s.decades]) + used('heads', [s.heads]) + used('center', [s.center]) +
-        used('cross', [s.cross]) + used('cord', [s.cord])) * 100) / 100;
+      const T = this._T;
+      const used = (r, ids) => [...new Set(ids.filter(Boolean))].reduce((t, id) => t + (this._items[r][id].extra || 0), 0);
+      let sum = this._catalog.basePrice;
+      T.roles.forEach((r) => { sum += used(r, r === 'beads' ? [s.beads, s.tail, ...s[T.sectionKey]] : [s[r]]); });
+      return Math.round(sum * 100) / 100;
     }
 
     _summaryLines() {
       const s = this._state;
-      const name = (g, id) => this._items[g][id].name;
-      const mixed = s.decades.some(Boolean) || !!s.tail;
-      const beads = mixed ? s.decades.map((d, i) => `D${i + 1} ${name('beads', d || s.beads)}`).concat(`Tail ${name('beads', s.tail || s.beads)}`).join(', ') : name('beads', s.beads);
-      return [
-        ['Beads', beads],
-        ['Our Father beads', name('heads', s.heads)],
-        ['Centerpiece', name('center', s.center)],
-        ['Crucifix', name('cross', s.cross)],
-        ['Cord', name('cord', s.cord)]
-      ];
+      const T = this._T;
+      const name = (r, id) => this._items[r][id].name;
+      const secs = s[T.sectionKey];
+      const mixed = secs.some(Boolean) || !!s.tail;
+      const beads = mixed ? secs.map((d, i) => `${T.sectionLabel[0]}${i + 1} ${name('beads', d || s.beads)}`).concat(`${T.tailLabel} ${name('beads', s.tail || s.beads)}`).join(', ') : name('beads', s.beads);
+      return [['Rosary type', T.label]].concat(T.roles.map((r) => [T.names[r], r === 'beads' ? beads : name(r, s[r])]));
     }
 
     getDesign() {
       if (!this._state) return null;
       const s = this._state;
-      const slots = LAYOUT.map((sl) => ({ id: sl.id, kind: sl.kind, skin: this._itemFor(sl).id }));
+      const T = this._T;
+      const slots = this._L.slots.map((sl) => ({ id: sl.id, kind: sl.kind, skin: this._itemFor(sl).id }));
       slots.push({ id: 'Cross', kind: 'cross', skin: s.cross });
+      if (T.id === 'rope') slots.push({ id: 'Tassel', kind: 'tassel', skin: s.tassel });
+      const selection = { type: T.id, beads: s.beads, [T.sectionKey]: [...s[T.sectionKey]], tail: s.tail || null };
+      T.roles.forEach((r) => { if (r !== 'beads') selection[r] = s[r]; });
       return {
         v: 1,
         product: this._catalog.product,
         catalogVersion: this._catalog.version,
-        selection: { beads: s.beads, decades: [...s.decades], tail: s.tail || null, heads: s.heads, center: s.center, cross: s.cross, cord: s.cord },
+        type: T.id,
+        selection,
         slots,
         summary: this._summaryLines().map(([k, v]) => `${k}: ${v}`).join(' | '),
         price: this._price()
@@ -1161,7 +1359,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     /* --------------------------------------------------------------- export */
     async _inlineImages() {
       const urls = new Set();
-      GROUPS.forEach((g) => Object.values(this._items[g]).forEach((it) => { if (it.image && !this._imgCache[it.image]) urls.add(it.image); }));
+      Object.values(this._byGroup).forEach((m) => Object.values(m).forEach((it) => { if (it.image && !this._imgCache[it.image]) urls.add(it.image); }));
       await Promise.all([...urls].map(async (u) => {
         try {
           const blob = await (await fetch(u, { mode: 'cors' })).blob();
@@ -1206,17 +1404,19 @@ button{font:inherit;color:inherit;cursor:pointer}
 
     /* -------------------------------------------------------------- actions */
     reset() {
-      this._state = this._defaults();
+      this._states[this._type] = this._defaults(this._type);
+      this._state = this._states[this._type];
       this._tab = 'beads';
       this._target = 'all';
       this._changed();
     }
 
     randomize() {
-      const pick = (g) => { const all = this._catalog.groups[g].items; const l = all.filter((it) => !it.soldOut); const src = l.length ? l : all; return src[Math.floor(Math.random() * src.length)].id; };
+      const T = this._T;
+      const pick = (r) => { const all = this._catalog.groups[T.group[r]].items; const l = all.filter((it) => !it.soldOut); const src = l.length ? l : all; return src[Math.floor(Math.random() * src.length)].id; };
       const s = this._state;
-      GROUPS.forEach((g) => { s[g] = pick(g); });
-      s.decades = [0, 1, 2, 3, 4].map(() => (Math.random() < 0.4 ? pick('beads') : null));
+      T.roles.forEach((r) => { s[r] = pick(r); });
+      s[T.sectionKey] = Array.from({ length: T.sectionCount }, () => (Math.random() < 0.4 ? pick('beads') : null));
       s.tail = Math.random() < 0.4 ? pick('beads') : null;
       this._changed();
     }
