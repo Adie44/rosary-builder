@@ -447,7 +447,13 @@ button{font:inherit;color:inherit;cursor:pointer}
  .stage svg{height:100%;max-height:none}
  .panel{height:100%;min-height:0;display:flex;flex-direction:column}
  .types,.tabs,.targets,.sum,.row,.msg{flex:none}
- .opts{flex:1 1 auto;min-height:0;overflow-y:auto;align-content:start;padding-right:4px;overscroll-behavior:contain}
+ .panel{overflow-y:auto}
+ /* the swatch grid always keeps room to show whole items; the chips scroll sideways instead of wrapping into extra rows */
+ .opts{flex:1 1 auto;min-height:250px;overflow-y:auto;align-content:start;padding-right:4px;overscroll-behavior:contain}
+ .targets{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px}
+ .targets span,.chip{flex:0 0 auto;white-space:nowrap}
+ .sum{grid-template-columns:1fr 1fr;column-gap:16px;margin-top:10px;padding-top:8px;font-size:13px}
+ .sum div:first-child{grid-column:1/-1}
 }
 @container rb (max-width:700px){
  .type .full{display:none}.type .short{display:inline}.type{padding:9px 6px}
@@ -1296,7 +1302,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         `${it.extra ? `<span class="ex">+${this._fmt(it.extra)}</span>` : ''}</button>`).join('');
 
       const lines = this._summaryLines();
-      $.sum.innerHTML = lines.map(([k, v]) => `<div><b>${esc(k)}:</b> ${esc(v)}</div>`).join('');
+      $.sum.innerHTML = lines.slice(1).map(([k, v]) => `<div><b>${esc(k)}:</b> ${esc(v)}</div>`).join('');
       this._renderCta();
     }
 
